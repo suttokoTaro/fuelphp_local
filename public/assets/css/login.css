@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Segoe UI", "Helvetica", Arial, sans-serif;
+  background: #f2f4f8;
+}
+
+.login-container {
+  width: 400px;
+  background: #fff;
+  padding: 5px 20px 20px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 20px;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+input:focus {
+  border-color: #4f7cff;
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.2);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.form {
+  width: auto;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border 0.2, box-shadow 0.2s;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px
+}
+
+.button {
+  width: auto;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border 0.2, box-shadow 0.1s;
+}
+
+.btn-login {
+  background: #4f7cff;
+  color: #fff;
+}
+
+.btn-login:hover {
+  background: #3b63e6;
+}
+
+.btn-signup {
+  background: #e0e4eb;
+  color: #333;
+}
+
+.btn-signup:hover {
+  background: #cfd5df;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.message-group {
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.msg-error {
+  color: #e53935;
+}
