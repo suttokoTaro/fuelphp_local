@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="button-group">
-			<input name="login" type="submit" value="ログイン" class="button btn-login">
+			<input name="login" type="submit" value="ログbbbイン" class="button btn-login">
 			<input name="signup" type="submit" value="新規登録" class="button btn-signup">
 		</div>
 	</form>
