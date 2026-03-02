@@ -14,7 +14,7 @@
 		<div class="sokuhimeContents-update-anchor">
 			<h2 class="sokuhimeContents-head">
 				<em class="sokuhimeContents-area"><?php echo $area; ?></em>
-				<span class="after-space">の源泉</span>
+				<span class="after-space">の源aaa泉</span>
 			</h2>
 		</div>
 		<span class="sokuhimeContens-update">更新</span>
