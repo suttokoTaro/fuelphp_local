@@ -4,6 +4,6 @@
 </head>
 
 <div class="login-container">
-	<h4 class="title">Menu</h4>
+	<h4 class='title'>Menu</h4>
 
 	<p>menu</p>
