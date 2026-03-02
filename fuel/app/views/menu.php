@@ -10,7 +10,7 @@
 		</div>
 	</h4>
 
-	<section class="f-sokuhimeContents <?php echo "aaad"; ?>">
+	<section class="f-sokuhimeContents <?php echo 'aaad'; ?>">
 		<div class="sokuhimeContents-update-anchor">
 			<h2 class="sokuhimeContents-head">
 				<em class="sokuhimeContents-area"><?php echo $area; ?></em>
