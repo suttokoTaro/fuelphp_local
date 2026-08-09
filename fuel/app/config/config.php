@@ -316,6 +316,13 @@ return array(
 	 *  Cookie settings
 	 * -------------------------------------------------------------------------
 	 */
+	'cookie' => [
+		'expiration' => 0,
+		'path' => '/',
+		'domain' => null,
+		'secure' => false,
+		'http_only' => false,
+	],
 
 	// 'cookie' => array(
 	/**
@@ -535,7 +542,6 @@ return array(
 	'always_load' => array(
 		'packages' => array(
 			'orm',
-			'auth',
 		),
 	),
 	'classes' => array(

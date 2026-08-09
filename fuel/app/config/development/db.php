@@ -31,15 +31,15 @@
 
 return [
     'default' => [
-        'type'        => 'mysqli',
-        'connection'  => [
-            'hostname'   => '127.0.0.1',
-            'database'   => 'fuel_dev',
-            'username'   => 'root',
-            'password'   => '',
+        'type' => 'mysqli',
+        'connection' => [
+            'hostname' => '127.0.0.1',
+            'database' => 'test',
+            'username' => 'root',
+            'password' => '',
             'persistent' => false,
         ],
-        'charset'   => 'utf8mb4',
+        'charset' => 'utf8mb4',
         'table_prefix' => '',
     ],
 ];
