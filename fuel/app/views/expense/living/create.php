@@ -42,33 +42,35 @@
 		<textarea name="note"></textarea>
 	</div>
 	<hr>
-	<h3>明細</h3>
-	<div id="items">
-		<div class="item-row">
-			<input type="text" name="items[0][item_name]" placeholder="品名">
-			<select name="items[0][detail_category_id]">
-				<option value="">詳細カテゴリ</option>
-				<?php foreach ($detail_categories as $detail_category): ?>
-					<option value="<?= $detail_category['id'] ?>">
-						<?= e($detail_category['name']) ?>
-					</option>
-				<?php endforeach; ?>
-			</select>
-			<input type="number" name="items[0][amount]" class="item-amount" min="0" placeholder="金額">
-			<button type="button" class="remove-item">削除</button>
+	<div id="items-area">
+		<h3>明細</h3>
+		<div id="items">
+			<div class="item-row">
+				<input type="text" name="items[0][item_name]" placeholder="品名">
+				<select name="items[0][detail_category_id]">
+					<option value="">詳細カテゴリ</option>
+					<?php foreach ($detail_categories as $detail_category): ?>
+						<option value="<?= $detail_category['id'] ?>">
+							<?= e($detail_category['name']) ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+				<input type="number" name="items[0][amount]" class="item-amount" min="0" placeholder="金額">
+				<button type="button" class="remove-item">削除</button>
+			</div>
 		</div>
+		<button type="button" id="add-item">
+			＋ 明細を追加
+		</button>
+		<div>
+			明細合計：
+			<span id="items-total">0</span> 円
+		</div>
+		<div>
+			未分類：
+			<span id="unclassified-amount">0</span> 円
+		</div>
+		<hr>
 	</div>
-	<button type="button" id="add-item">
-		＋ 明細を追加
-	</button>
-	<div>
-		明細合計：
-		<span id="items-total">0</span> 円
-	</div>
-	<div>
-		未分類：
-		<span id="unclassified-amount">0</span> 円
-	</div>
-	<hr>
 	<button type="submit">登録する</button>
 </form>

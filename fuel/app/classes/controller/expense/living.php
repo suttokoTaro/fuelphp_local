@@ -46,6 +46,10 @@ class Controller_expense_living extends Controller_Base
 
 			$data['errors'] = $validation->error();
 		}
+		
+		$this->template->js = array(
+			'expense/living/create.js',
+		);
 		$view = View::forge('expense/living/create', $data);
 		$this->template->content = $view;
 		return;

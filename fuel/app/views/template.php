@@ -20,6 +20,13 @@
 	<main class="app-main">
 		<?= $content ?>
 	</main>
+
+	<?php echo Asset::js('jquery-4.0.0.js'); ?>
+	<?php if (!empty($js)): ?>
+		<?php foreach ($js as $file): ?>
+			<?php echo Asset::js($file); ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
 </body>
 
 </html>
