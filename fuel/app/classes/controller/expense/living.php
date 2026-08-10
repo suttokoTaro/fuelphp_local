@@ -2,6 +2,14 @@
 
 class Controller_expense_living extends Controller_Base
 {
+	public function before()
+	{
+		parent::before();
+		$this->template->js = [
+			'expense/living/create.js',
+		];
+	}
+
 	/**
 	 * 日常生活費入力画面
 	 */
@@ -17,46 +25,61 @@ class Controller_expense_living extends Controller_Base
 		$data['stores'] = $stores;
 		$data['detail_categories'] = $detail_categories;
 
-		if (Input::method() === 'POST') {
-			$validation = $this->get_validation();
-
-			if ($validation->run()) {
+		if (Input::method() === 'POST')
+		{
+			$form = Input::post();
+			//$validation = $this->get_validation();
+			//if ($validation->run()) {
 				$expense_date = Input::post('expense_date');
 				$year = (int) date('Y', strtotime($expense_date));
+				try
+				{
+					DB::start_transaction();
+					$number = Model_Expenseslivingmain::get_next_number($year);
+					$params = [
+						'year' => $year,
+						'number' => $number,
+						'expense_date' => $expense_date,
+						'store_id' => $form['store_id'],
+						'title' => $form['title'],
+						'amount' => $form['amount'],
+						'category_id' => $form['category_id'],
+						'paid_by' => $form['paid_by'],
+						'note' => $form['note'],
+					];
+					$main_id = Model_Expenseslivingmain::insert($params);
 
-				$expense = Model_Expenseslivingmain::forge([
-					'year' => $year,
-					'number' => Model_Expenseslivingmain::get_next_number($year),
-					'expense_date' => $expense_date,
-					'store_id' => (int) Input::post('store_id'),
-					'title' => Input::post('title'),
-					'amount' => (int) Input::post('amount'),
-					'category_id' => (int) Input::post('category_id'),
-					'paid_by' => Input::post('paid_by'),
-					'note' => Input::post('note'),
-				]);
-
-				if ($expense->save()) {
-					Session::set('test', 'hello');
+					foreach ($form['items'] as $index => $item)
+					{
+						// 完全な空行なら無視
+						if (empty($item['item_name']) && empty($item['amount']))
+						{
+							continue;
+						}
+						$detail_category_id = !empty($item['detail_category_id']) ? (int) $item['detail_category_id'] : null;
+						$params = [
+							'expenses_living_main_id' => $main_id,
+							'item_name' => $item['item_name'],
+							'amount' => (int) $item['amount'],
+							'detail_category_id' => $detail_category_id,
+							'sort_order' => $index + 1,
+						];
+						Model_Expenseslivingsub::insert($params);
+					}
+					DB::commit_transaction();
 					Session::set_flash('success', '日常生活費を登録しました。');
-
 					return Response::redirect('expense/living/create');
 				}
-			}
-
-			$data['errors'] = $validation->error();
+				catch (Exception $e)
+				{
+					DB::rollback_transaction();
+					Log::error('生活費登録エラー: '.$e->getMessage());
+					Session::set_flash('error','登録に失敗しました。');
+				}
 		}
-		
-		$this->template->js = array(
-			'expense/living/create.js',
-		);
 		$view = View::forge('expense/living/create', $data);
 		$this->template->content = $view;
 		return;
-
-		return Response::forge(
-			View::forge('expense/living/create', $data)
-		);
 	}
 
 	/**

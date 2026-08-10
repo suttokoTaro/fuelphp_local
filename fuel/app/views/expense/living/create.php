@@ -6,7 +6,6 @@
 	<div>
 		<label>店舗</label>
 		<select name="store_id">
-			<option value="0">選択してください</option>
 			<?php foreach ($stores as $store): ?>
 				<option value="<?php echo $store['id']; ?>"><?php echo e($store['name']); ?></option>
 			<?php endforeach; ?>
@@ -19,7 +18,6 @@
 	<div>
 		<label>カテゴリ</label>
 		<select name="category_id" id="category-id">
-			<option value="">選択してください</option>
 			<?php foreach ($categories as $category): ?>
 				<option value="<?php echo $category['id'] ?>"><?php echo e($category['name']) ?></option>
 			<?php endforeach; ?>
@@ -74,3 +72,4 @@
 	</div>
 	<button type="submit">登録する</button>
 </form>
+<p><?php echo Session::get_flash('error'); ?></p>
