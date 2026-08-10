@@ -10,6 +10,12 @@ class Controller_expense_living extends Controller_Base
 		$data = [
 			'errors' => [],
 		];
+		$categories = Model_Expenseslivingcategorymst::get_all();
+		$stores = Model_Expenseslivingstoremst::get_all();
+		$detail_categories = Model_Expenseslivingdetailcategorymst::get_all();
+		$data['categories'] = $categories;
+		$data['stores'] = $stores;
+		$data['detail_categories'] = $detail_categories;
 
 		if (Input::method() === 'POST') {
 			$validation = $this->get_validation();
@@ -40,6 +46,9 @@ class Controller_expense_living extends Controller_Base
 
 			$data['errors'] = $validation->error();
 		}
+		$view = View::forge('expense/living/create', $data);
+		$this->template->content = $view;
+		return;
 
 		return Response::forge(
 			View::forge('expense/living/create', $data)

@@ -1,151 +1,74 @@
-<h1>日常生活費入力</h1>
-
-<?php if ($success = Session::get_flash('success')): ?>
-	<p>
-		<?= e($success) ?>
-	</p>
-<?php endif; ?>
-
-<?php if (!empty($errors)): ?>
-	<ul>
-		<?php foreach ($errors as $error): ?>
-			<li>
-				<?= e($error->get_message()) ?>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-<?php endif; ?>
-
-
-<?= Form::open([
-	'action' => 'expense/living/create',
-	'method' => 'post',
-]) ?>
-
-
-<div>
-	<?= Form::label('支出日', 'expense_date') ?>
-
-	<?= Form::input(
-		'expense_date',
-		Input::post('expense_date', date('Y-m-d')),
-		[
-			'type' => 'date',
-			'id' => 'expense_date',
-		]
-	) ?>
-</div>
-
-
-<div>
-	<?= Form::label('お店', 'store_id') ?>
-
-	<?= Form::select(
-		'store_id',
-		Input::post('store_id'),
-		[
-			'' => '選択してください',
-			1 => 'スーパー',
-			2 => 'コンビニ',
-			3 => 'ドラッグストア',
-			4 => 'Amazon',
-			5 => 'その他',
-		],
-		[
-			'id' => 'store_id',
-		]
-	) ?>
-</div>
-
-
-<div>
-	<?= Form::label('タイトル', 'title') ?>
-
-	<?= Form::input(
-		'title',
-		Input::post('title'),
-		[
-			'id' => 'title',
-			'maxlength' => 255,
-		]
-	) ?>
-</div>
-
-
-<div>
-	<?= Form::label('金額', 'amount') ?>
-
-	<?= Form::input(
-		'amount',
-		Input::post('amount'),
-		[
-			'type' => 'number',
-			'id' => 'amount',
-			'min' => 0,
-		]
-	) ?>
-
-	円
-</div>
-
-
-<div>
-	<?= Form::label('カテゴリ', 'category_id') ?>
-
-	<?= Form::select(
-		'category_id',
-		Input::post('category_id'),
-		[
-			'' => '選択してください',
-			1 => '食費',
-			2 => '日用品',
-			3 => '外食',
-			4 => '光熱費',
-			5 => 'その他',
-		],
-		[
-			'id' => 'category_id',
-		]
-	) ?>
-</div>
-
-
-<div>
-	<?= Form::label('支払元', 'paid_by') ?>
-
-	<?= Form::select(
-		'paid_by',
-		Input::post('paid_by'),
-		[
-			'' => '選択してください',
-			'self' => '自分',
-			'wife' => '妻',
-			'shared' => '共有口座',
-		],
-		[
-			'id' => 'paid_by',
-		]
-	) ?>
-</div>
-
-
-<div>
-	<?= Form::label('メモ', 'note') ?>
-
-	<?= Form::textarea(
-		'note',
-		Input::post('note'),
-		[
-			'id' => 'note',
-			'rows' => 5,
-		]
-	) ?>
-</div>
-
-
-<div>
-	<?= Form::submit('submit', '登録') ?>
-</div>
-
-
-<?= Form::close() ?>
+<form method="post">
+	<div>
+		<label>支出日</label>
+		<input type="date" name="expense_date" value="<?php echo date('Y-m-d'); ?>">
+	</div>
+	<div>
+		<label>店舗</label>
+		<select name="store_id">
+			<option value="0">選択してください</option>
+			<?php foreach ($stores as $store): ?>
+				<option value="<?php echo $store['id']; ?>"><?php echo e($store['name']); ?></option>
+			<?php endforeach; ?>
+		</select>
+	</div>
+	<div>
+		<label>タイトル</label>
+		<input type="text" name="title">
+	</div>
+	<div>
+		<label>カテゴリ</label>
+		<select name="category_id" id="category-id">
+			<option value="">選択してください</option>
+			<?php foreach ($categories as $category): ?>
+				<option value="<?php echo $category['id'] ?>"><?php echo e($category['name']) ?></option>
+			<?php endforeach; ?>
+		</select>
+	</div>
+	<div>
+		<label>立て替え者</label>
+		<select name="paid_by">
+			<option value="<?php echo Model_Expenseslivingmain::PAID_BY_SHARED ?>">共有口座</option>
+			<option value="<?php echo Model_Expenseslivingmain::PAID_BY_NAOYA ?>">直也</option>
+			<option value="<?php echo Model_Expenseslivingmain::PAID_BY_MAYU ?>">まゆ</option>
+		</select>
+	</div>
+	<div>
+		<label>金額</label>
+		<input type="number" name="amount" id="main-amount" min="0">円
+	</div>
+	<div>
+		<label>メモ</label>
+		<textarea name="note"></textarea>
+	</div>
+	<hr>
+	<h3>明細</h3>
+	<div id="items">
+		<div class="item-row">
+			<input type="text" name="items[0][item_name]" placeholder="品名">
+			<select name="items[0][detail_category_id]">
+				<option value="">詳細カテゴリ</option>
+				<?php foreach ($detail_categories as $detail_category): ?>
+					<option value="<?= $detail_category['id'] ?>">
+						<?= e($detail_category['name']) ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+			<input type="number" name="items[0][amount]" class="item-amount" min="0" placeholder="金額">
+			<button type="button" class="remove-item">削除</button>
+		</div>
+	</div>
+	<button type="button" id="add-item">
+		＋ 明細を追加
+	</button>
+	<div>
+		明細合計：
+		<span id="items-total">0</span> 円
+	</div>
+	<div>
+		未分類：
+		<span id="unclassified-amount">0</span> 円
+	</div>
+	<hr>
+	<button type="submit">登録する</button>
+</form>
