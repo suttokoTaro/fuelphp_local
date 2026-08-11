@@ -16,4 +16,7 @@ return array(
 	'hello(/:name)?' => array('welcome/hello', 'name' => 'hello'),
 
 	'top' => 'top/index',
+	
+	'expense/living/create' => 'expense/living/create/index',
+	'expense/living/list' => 'expense/living/list/index',
 );

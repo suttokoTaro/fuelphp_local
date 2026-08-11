@@ -1,0 +1,145 @@
+.filter-area {
+	display: flex;
+	align-items: flex-end;
+	gap: 16px;
+	margin-bottom: 16px;
+	padding: 12px 16px;
+	background: #f7f7f7;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+}
+
+.filter-item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.filter-item label {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.filter-item select {
+	min-width: 120px;
+	padding: 6px 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.filter-area button {
+	padding: 7px 18px;
+	cursor: pointer;
+}
+
+.expense-list {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.expense-list th,
+.expense-list td {
+	padding: 8px 10px;
+	border-bottom: 1px solid #ddd;
+	text-align: left;
+}
+
+.expense-list th {
+	background: #f5f5f5;
+	font-size: 13px;
+}
+
+.expense-list td {
+	font-size: 14px;
+}
+
+.expense-list .amount {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.expense-list .empty {
+	padding: 30px;
+	text-align: center;
+	color: #888;
+}
+
+.operation {
+	white-space: nowrap;
+}
+
+.btn-edit,
+.btn-detail {
+	display: inline-block;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: #fff;
+	color: #333;
+	font-size: 13px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.btn-edit:hover,
+.btn-detail:hover {
+	background: #f3f3f3;
+}
+
+
+/* モーダル */
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.modal-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 700px;
+	max-width: 90%;
+	max-height: 80vh;
+	overflow-y: auto;
+	background: #fff;
+	border-radius: 6px;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.modal-header h2 {
+	margin: 0;
+	font-size: 20px;
+}
+
+.modal-close {
+	border: none;
+	background: none;
+	font-size: 24px;
+	cursor: pointer;
+}

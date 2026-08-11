@@ -5,7 +5,7 @@
 
 <div class="expense-container">
 	<div class="page-header">
-		<h3>日常生活費の登録</h3>
+		<h3>日常生活費の登録画面</h3>
 	</div>
 	<?php if ($flash_success): ?>
 		<div class="message message-success">
@@ -37,7 +37,7 @@
 					<input type="date" name="expense_date" value="<?php echo date('Y-m-d'); ?>">
 				</div>
 				<div class="form-group">
-					<label>店舗</label>
+					<label>購入先</label>
 					<select name="store_id">
 						<?php foreach ($stores as $store): ?>
 							<option value="<?= $store['id'] ?>"><?= e($store['name']) ?></option>
@@ -104,7 +104,7 @@
 									<?php if ($i === 0): ?>
 										<label>詳細カテゴリ</label>
 									<?php endif; ?>
-									<select name="items[0][detail_category_id]">
+									<select name="items[<?= $i ?>][detail_category_id]">
 										<option value="">選択してください</option>
 										<?php foreach ($detail_categories as $detail_category): ?>
 											<option value="<?= $detail_category['id'] ?>">

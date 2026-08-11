@@ -45,10 +45,30 @@ $(function () {
 
 	// カテゴリ変更
 	$('#category-id').on('change', function () {
-		if ($(this).val() === '1') {
-			$('#items-area').show();
+		const categoryId = $(this).val();
+		const $itemsArea = $('#items-area');
+		const $detailCategories = $itemsArea.find('select[name$="[detail_category_id]"]');
+
+		if (categoryId === '1') {
+			// 食費：明細表示、詳細カテゴリ選択可能
+			$itemsArea.show();
+			$detailCategories.prop('disabled', false);
+
+		} else if (categoryId === '2') {
+			// 日用品：明細表示、詳細カテゴリ選択不可
+			$itemsArea.show();
+
+			// 選択済みの値があればクリア
+			$detailCategories.val('');
+			$detailCategories.prop('disabled', true);
+
 		} else {
-			$('#items-area').hide();
+			// その他：明細非表示
+			$itemsArea.hide();
+
+			// 詳細カテゴリをクリア
+			$detailCategories.val('');
+			$detailCategories.prop('disabled', true);
 		}
 	});
 

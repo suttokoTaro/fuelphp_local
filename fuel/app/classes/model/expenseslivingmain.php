@@ -8,6 +8,11 @@ class Model_Expenseslivingmain extends \Orm\Model
 	const PAID_BY_SHARED = '1';
 	const PAID_BY_NAOYA = '2';
 	const PAID_BY_MAYU = '3';
+	const PAID_BY_MAP = [
+		self::PAID_BY_SHARED => '共有口座',
+		self::PAID_BY_NAOYA => '直也',
+		self::PAID_BY_MAYU => 'まゆ',
+	];
 
 
 	/**
@@ -25,6 +30,31 @@ class Model_Expenseslivingmain extends \Orm\Model
 		$params = ['year' => $year,];
 		$result = DB::query($sql)->parameters($params)->execute()->current();
 		return (int) $result['next_number'];
+	}
+
+	/**
+	 * 条件に合致した日常生活費情報リストを取得する
+	 * 
+	 * @param array $conditions
+	 * @return array
+	 */
+	public static function get_list($conditions)
+	{
+		$sql = 'SELECT m.*, s.name AS store_name, c.name AS category_name'.PHP_EOL;
+		$sql .= 'FROM '.self::table().' m'.PHP_EOL;
+		$sql .= 'INNER JOIN expenses_living_store_mst s ON s.id = m.store_id'.PHP_EOL;
+		$sql .= 'INNER JOIN expenses_living_category_mst c ON c.id = m.category_id'.PHP_EOL;
+		$sql .= 'WHERE m.year = :year'.PHP_EOL;
+		$params = ['year' => $conditions['year'],];
+
+		if ($conditions['paid_by'] !== 'all')
+		{
+			$sql .= 'AND paid_by = :paid_by'.PHP_EOL;
+			$params['paid_by'] = $conditions['paid_by'];
+		}
+		$sql .= 'ORDER BY m.number ASC'.PHP_EOL;
+		$result = DB::query($sql)->parameters($params)->execute()->as_array();
+		return $result;
 	}
 
 	/**

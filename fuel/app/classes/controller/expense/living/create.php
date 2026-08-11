@@ -1,6 +1,6 @@
 <?php
 
-class Controller_expense_living extends Controller_Base
+class Controller_expense_living_create extends Controller_Base
 {
 	public function before()
 	{
@@ -14,7 +14,7 @@ class Controller_expense_living extends Controller_Base
 	/**
 	 * 日常生活費入力画面
 	 */
-	public function action_create()
+	public function action_index()
 	{
 		$data = [
 			'errors' => [],
