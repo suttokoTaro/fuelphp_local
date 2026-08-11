@@ -1,17 +1,26 @@
+/* ==============================
+   共通
+============================== */
+
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-	background: #f4f7fb;
-	color: #1f2937;
+    background: #f4f7fb;
+    color: #1f2937;
 }
 
+
+/* ==============================
+   全体
+============================== */
+
 .expense-container {
-	width: 100%;
-	max-width: 900px;
-	margin: 40px auto;
-	padding: 0 20px 60px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px 30px;
 }
 
 
@@ -20,18 +29,19 @@ body {
 ============================== */
 
 .page-header {
-	margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .page-header h2 {
-	margin: 0 0 6px;
-	font-size: 28px;
-	color: #172033;
+    margin: 0 0 4px;
+    font-size: 26px;
+    color: #172033;
 }
 
 .page-header p {
-	margin: 0;
-	color: #6b7280;
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
 }
 
 
@@ -40,79 +50,96 @@ body {
 ============================== */
 
 .form-card {
-	background: #fff;
-	border: 1px solid #e3eaf3;
-	border-radius: 12px;
-	padding: 28px;
-	margin-bottom: 24px;
-	box-shadow: 0 2px 8px rgba(30, 64, 175, 0.05);
+    background: #fff;
+    border: 1px solid #e3eaf3;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(30, 64, 175, 0.05);
 }
 
 .form-section-title {
-	font-size: 18px;
-	font-weight: 700;
-	color: #1d4ed8;
-	margin-bottom: 22px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-bottom: 12px;
 }
 
 
 /* ==============================
-   フォーム
+   基本情報
 ============================== */
 
 .form-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 22px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1.4fr 1.2fr;
+    gap: 14px 18px;
 }
 
 .form-group {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
+/*
+ * 横幅いっぱいにしたい項目に使用
+ * 現在は基本的に使用しなくてもOK
+ */
 .form-group-full {
-	grid-column: 1 / -1;
+    grid-column: auto;
 }
+
+
+/* ==============================
+   ラベル
+============================== */
 
 label {
-	display: block;
-	margin-bottom: 7px;
-	font-size: 14px;
-	font-weight: 600;
-	color: #374151;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
 }
+
+
+/* ==============================
+   入力項目
+============================== */
 
 input,
 select,
 textarea {
-	width: 100%;
-	height: 44px;
-	padding: 9px 12px;
-	border: 1px solid #cfd8e6;
-	border-radius: 7px;
-	background: #fff;
-	color: #1f2937;
-	font-size: 15px;
-	outline: none;
-	transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+    height: 38px;
+    padding: 6px 10px;
+    border: 1px solid #cfd8e6;
+    border-radius: 6px;
+    background: #fff;
+    color: #1f2937;
+    font-size: 14px;
+    outline: none;
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
 }
 
 textarea {
-	height: 90px;
-	resize: vertical;
+    height: 38px;
+    min-height: 38px;
+    resize: vertical;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-	border-color: #2563eb;
-	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 input::placeholder,
 textarea::placeholder {
-	color: #9ca3af;
+    color: #9ca3af;
 }
 
 
@@ -121,141 +148,198 @@ textarea::placeholder {
 ============================== */
 
 .amount-input {
-	display: flex;
-	align-items: center;
-	gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .amount-input input {
-	text-align: right;
+    text-align: right;
 }
 
 .amount-input span {
-	flex-shrink: 0;
-	color: #6b7280;
+    flex-shrink: 0;
+    color: #6b7280;
+    font-size: 13px;
 }
 
 
 /* ==============================
-   明細
+   明細ヘッダー
 ============================== */
 
 .section-header {
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-between;
-	margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
 }
 
 .section-header .form-section-title {
-	margin-bottom: 4px;
+    margin-bottom: 0;
 }
 
 .section-header p {
-	margin: 0;
-	color: #6b7280;
-	font-size: 13px;
+    margin: 2px 0 0;
+    color: #6b7280;
+    font-size: 12px;
 }
 
+
+/* ==============================
+   明細エリア
+============================== */
+
+.items-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: 20px;
+    align-items: start;
+}
+
+.items-main {
+    min-width: 0;
+}
+
+.items-side {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* ==============================
+   明細行
+============================== */
+
 .item-row {
-	display: grid;
-	grid-template-columns: 2fr 1.4fr 1fr auto;
-	gap: 12px;
-	align-items: end;
+    display: grid;
+    grid-template-columns: 2fr 1.4fr 1fr auto;
+    gap: 10px;
+    align-items: end;
 
-	padding: 16px;
-	margin-bottom: 12px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
 
-	background: #f8faff;
-	border: 1px solid #e1e8f5;
-	border-radius: 9px;
+    background: #f8faff;
+    border: 1px solid #e1e8f5;
+    border-radius: 7px;
+}
+
+.item-name,
+.item-category,
+.item-price {
+    min-width: 0;
 }
 
 .item-delete {
-	padding-bottom: 3px;
+    padding-bottom: 1px;
 }
 
+
+/* ==============================
+   明細削除ボタン
+============================== */
+
 .remove-item {
-	height: 38px;
-	padding: 0 12px;
+    width: auto;
+    height: 38px;
+    padding: 0 12px;
 
-	background: #fff;
-	color: #dc2626;
+    background: #fff;
+    color: #dc2626;
 
-	border: 1px solid #fecaca;
-	border-radius: 6px;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
 
-	cursor: pointer;
+    font-size: 13px;
+    cursor: pointer;
+
+    transition:
+        background 0.15s,
+        border-color 0.15s;
 }
 
 .remove-item:hover {
-	background: #fef2f2;
+    background: #fef2f2;
+    border-color: #fca5a5;
 }
 
 
 /* ==============================
-   明細追加
+   明細追加ボタン
 ============================== */
 
 .button-secondary {
-	padding: 9px 15px;
+    width: auto;
+    height: 36px;
+    padding: 0 14px;
 
-	background: #eff6ff;
-	color: #1d4ed8;
+    background: #eff6ff;
+    color: #1d4ed8;
 
-	border: 1px solid #bfdbfe;
-	border-radius: 7px;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
 
-	font-weight: 600;
-	cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s,
+        border-color 0.15s;
 }
 
 .button-secondary:hover {
-	background: #dbeafe;
+    background: #dbeafe;
+    border-color: #93c5fd;
 }
 
 
 /* ==============================
-   合計
+   明細集計
 ============================== */
 
 .summary {
-	width: 320px;
-	margin: 24px 0 0 auto;
+    width: 100%;
+    margin: 0;
 
-	background: #f8faff;
-	border: 1px solid #dbe5f4;
-	border-radius: 9px;
+    background: #f8faff;
+    border: 1px solid #dbe5f4;
+    border-radius: 8px;
 
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .summary-row {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-	padding: 14px 18px;
+    padding: 11px 14px;
 
-	border-bottom: 1px solid #e5eaf2;
+    border-bottom: 1px solid #e5eaf2;
+
+    font-size: 13px;
 }
 
 .summary-row:last-child {
-	border-bottom: none;
+    border-bottom: none;
 }
 
 .summary-row strong {
-	font-size: 20px;
-	color: #1d4ed8;
+    font-size: 18px;
+    color: #1d4ed8;
 }
 
 .summary-row small {
-	font-size: 13px;
-	font-weight: normal;
+    font-size: 12px;
+    font-weight: normal;
 }
 
 .summary-row.unclassified strong {
-	color: #d97706;
+    color: #d97706;
 }
 
 
@@ -263,31 +347,41 @@ textarea::placeholder {
    登録ボタン
 ============================== */
 
-.submit-area {
-	display: flex;
-	justify-content: flex-end;
-}
-
 .button-primary {
-	min-width: 180px;
-	height: 48px;
+    min-width: 180px;
+    height: 44px;
 
-	background: #2563eb;
-	color: #fff;
+    padding: 0 20px;
 
-	border: none;
-	border-radius: 8px;
+    background: #2563eb;
+    color: #fff;
 
-	font-size: 16px;
-	font-weight: 700;
+    border: none;
+    border-radius: 7px;
 
-	cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
 
-	box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+    cursor: pointer;
+
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+
+    transition:
+        background 0.15s,
+        box-shadow 0.15s;
 }
 
 .button-primary:hover {
-	background: #1d4ed8;
+    background: #1d4ed8;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+/*
+ * 明細右側に配置する登録ボタン
+ */
+.items-side .button-primary {
+    width: 100%;
+    min-width: 0;
 }
 
 
@@ -296,33 +390,65 @@ textarea::placeholder {
 ============================== */
 
 .message {
-	padding: 14px 18px;
-	margin-bottom: 20px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
 
-	border-radius: 8px;
-	font-size: 14px;
+    border-radius: 7px;
+
+    font-size: 13px;
 }
 
 .message-title {
-	font-weight: 700;
-	margin-bottom: 6px;
+    font-weight: 700;
+    margin-bottom: 4px;
 }
 
 .message ul {
-	margin: 6px 0 0;
-	padding-left: 20px;
+    margin: 4px 0 0;
+    padding-left: 20px;
 }
 
 .message-error {
-	background: #fef2f2;
-	border: 1px solid #fecaca;
-	color: #b91c1c;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
 }
 
 .message-success {
-	background: #eff6ff;
-	border: 1px solid #bfdbfe;
-	color: #1d4ed8;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+}
+
+
+/* ==============================
+   スマホ・狭い画面
+============================== */
+
+@media (max-width: 900px) {
+
+    .expense-container {
+        margin-top: 15px;
+        padding: 0 12px 30px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .items-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .items-side {
+        display: grid;
+        grid-template-columns: 1fr 200px;
+        align-items: stretch;
+    }
+
+    .items-side .button-primary {
+        height: 100%;
+    }
 }
 
 
@@ -330,46 +456,55 @@ textarea::placeholder {
    スマホ
 ============================== */
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
 
-	.expense-container {
-		margin-top: 20px;
-		padding: 0 12px 40px;
-	}
+    .page-header h2 {
+        font-size: 22px;
+    }
 
-	.form-card {
-		padding: 20px 16px;
-	}
+    .form-card {
+        padding: 16px 14px;
+    }
 
-	.form-grid {
-		grid-template-columns: 1fr;
-	}
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
 
-	.form-group-full {
-		grid-column: auto;
-	}
+    .form-group-full {
+        grid-column: auto;
+    }
 
-	.section-header {
-		display: block;
-	}
+    .section-header {
+        display: block;
+    }
 
-	.button-secondary {
-		margin-top: 12px;
-	}
+    .button-secondary {
+        margin-top: 10px;
+    }
 
-	.item-row {
-		grid-template-columns: 1fr;
-	}
+    .item-row {
+        grid-template-columns: 1fr;
+    }
 
-	.summary {
-		width: 100%;
-	}
+    .item-delete {
+        padding-bottom: 0;
+    }
 
-	.submit-area {
-		display: block;
-	}
+    .remove-item {
+        width: 100%;
+    }
 
-	.button-primary {
-		width: 100%;
-	}
+    .items-side {
+        display: flex;
+    }
+
+    .summary {
+        width: 100%;
+    }
+
+    .items-side .button-primary {
+        width: 100%;
+        height: 44px;
+    }
 }

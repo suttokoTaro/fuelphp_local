@@ -5,8 +5,7 @@
 
 <div class="expense-container">
 	<div class="page-header">
-		<h2>日常生活費の登録</h2>
-		<p>日々の支出を登録します</p>
+		<h3>日常生活費の登録</h3>
 	</div>
 	<?php if ($flash_success): ?>
 		<div class="message message-success">
@@ -83,60 +82,65 @@
 			<div class="section-header">
 				<div>
 					<div class="form-section-title">明細</div>
-					<p>商品の内訳を入力できます</p>
 				</div>
 				<button type="button" id="add-item" class="button-secondary">＋ 明細を追加</button>
 			</div>
-			<div id="items">
-				<div class="item-row">
-					<div class="item-name">
-						<label>品名</label>
-						<input type="text" name="items[0][item_name]" placeholder="例：牛乳">
-					</div>
-					<div class="item-category">
-						<label>詳細カテゴリ</label>
-						<select name="items[0][detail_category_id]">
-							<option value="">選択してください</option>
-							<?php foreach ($detail_categories as $detail_category): ?>
-								<option value="<?= $detail_category['id'] ?>">
-									<?= e($detail_category['name']) ?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-					<div class="item-price">
-						<label>金額</label>
-						<div class="amount-input">
-							<input type="number" name="items[0][amount]" class="item-amount" min="0" placeholder="0">
-							<span>円</span>
+			<div class="items-layout">
+				<!-- 左側 -->
+				<div class="items-main">
+					<div id="items">
+						<div class="item-row">
+							<div class="item-name">
+								<label>品名</label>
+								<input type="text" name="items[0][item_name]" placeholder="例：牛乳">
+							</div>
+							<div class="item-category">
+								<label>詳細カテゴリ</label>
+								<select name="items[0][detail_category_id]">
+									<option value="">選択してください</option>
+									<?php foreach ($detail_categories as $detail_category): ?>
+										<option value="<?= $detail_category['id'] ?>">
+											<?= e($detail_category['name']) ?>
+										</option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+							<div class="item-price">
+								<label>金額</label>
+								<div class="amount-input">
+									<input type="number" name="items[0][amount]" class="item-amount" min="0" placeholder="0">
+									<span>円</span>
+								</div>
+							</div>
+							<div class="item-delete">
+								<button type="button" class="remove-item">削除</button>
+							</div>
 						</div>
 					</div>
-					<div class="item-delete">
-						<button type="button" class="remove-item">削除</button>
+				</div>
+				<!-- 右側 -->
+				<div class="items-side">
+					<div class="summary">
+						<div class="summary-row">
+							<span>明細合計</span>
+							<strong>
+								<span id="items-total">0</span>
+								<small>円</small>
+							</strong>
+						</div>
+						<div class="summary-row unclassified">
+							<span>未分類</span>
+							<strong>
+								<span id="unclassified-amount">0</span>
+								<small>円</small>
+							</strong>
+						</div>
 					</div>
+					<button type="submit" class="button-primary">
+						登録する
+					</button>
 				</div>
 			</div>
-			<div class="summary">
-				<div class="summary-row">
-					<span>明細合計</span>
-					<strong>
-						<span id="items-total">0</span>
-						<small>円</small>
-					</strong>
-				</div>
-				<div class="summary-row unclassified">
-					<span>未分類</span>
-					<strong>
-						<span id="unclassified-amount">0</span>
-						<small>円</small>
-					</strong>
-				</div>
-			</div>
-		</div>
-		<div class="submit-area">
-			<button type="submit" class="button-primary">
-				登録する
-			</button>
 		</div>
 	</form>
 </div>
