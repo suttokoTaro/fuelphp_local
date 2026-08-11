@@ -69,7 +69,7 @@
 	<div class="modal-overlay"></div>
 	<div class="modal-content">
 		<div class="modal-header">
-			<h2>支出詳細</h2>
+			<h2>支出詳細 #<?= e($expense['number']) ?></h2>
 			<button type="button" class="modal-close">×</button>
 		</div>
 		<div id="detail-modal-body">

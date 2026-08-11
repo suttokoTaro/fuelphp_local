@@ -91,10 +91,6 @@
 	box-sizing: border-box;
 }
 
-.detail-amount {
-	text-align: right;
-}
-
 .detail-note {
 	min-height: 30px;
 	max-height: 60px;
@@ -139,7 +135,5 @@
 }
 
 .detail-items td.amount {
-	text-align: right;
-
 	white-space: nowrap;
 }

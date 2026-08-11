@@ -1,13 +1,6 @@
 <div class="detail-main">
 
 	<div class="detail-field">
-		<div class="detail-label">No.</div>
-		<div class="detail-value">
-			<?= e($expense['number']) ?>
-		</div>
-	</div>
-
-	<div class="detail-field">
 		<div class="detail-label">支出日</div>
 		<div class="detail-value">
 			<?= e(date('Y/m/d', strtotime($expense['expense_date']))) ?>
