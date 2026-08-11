@@ -58,6 +58,24 @@ class Model_Expenseslivingmain extends \Orm\Model
 	}
 
 	/**
+	 * 主キーをもとに、日常生活費情報を取得する
+	 * 
+	 * @param int $id
+	 * @return array
+	 */
+	public static function get_by_id($id)
+	{
+		$sql = 'SELECT m.*, s.name AS store_name, c.name AS category_name'.PHP_EOL;
+		$sql .= 'FROM '.self::table().' m'.PHP_EOL;
+		$sql .= 'INNER JOIN expenses_living_store_mst s ON s.id = m.store_id'.PHP_EOL;
+		$sql .= 'INNER JOIN expenses_living_category_mst c ON c.id = m.category_id'.PHP_EOL;
+		$sql .= 'WHERE m.id = :id'.PHP_EOL;
+		$params = ['id' => $id,];
+		$result = DB::query($sql)->parameters($params)->execute()->current();
+		return $result;
+	}
+
+	/**
 	 * 日常生活費を登録する
 	 * 
 	 * @param array $datas

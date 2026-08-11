@@ -57,7 +57,7 @@
 			<?php endforeach; ?>
 		<?php else: ?>
 			<tr>
-				<td colspan="6" class="empty">
+				<td colspan="8" class="empty">
 					該当するデータはありません
 				</td>
 			</tr>

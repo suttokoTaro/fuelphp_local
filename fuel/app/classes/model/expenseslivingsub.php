@@ -4,6 +4,16 @@ class Model_Expenseslivingsub extends \Orm\Model
 {
 	protected static $_table_name = 'expenses_living_sub';
 
+	public static function get_by_main_id($main_id)
+	{
+		$sql = 'SELECT s.*, c.name AS detail_category_name'.PHP_EOL;
+		$sql .= 'FROM '.self::table().' s'.PHP_EOL;
+		$sql .= 'LEFT JOIN expenses_living_detail_category_mst c ON c.id = s.detail_category_id'.PHP_EOL;
+		$sql .= 'WHERE s.expenses_living_main_id = :main_id'.PHP_EOL;
+		$params = ['main_id' => $main_id,];
+		$result = DB::query($sql)->parameters($params)->execute()->as_array();
+		return $result;
+	}
 
 	/**
 	 * 日常生活費詳細情報を登録する
