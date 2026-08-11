@@ -28,7 +28,7 @@
 		</div>
 	<?php endif; ?>
 
-	<form method="post">
+	<form method="post" class="expense-form">
 		<div class="form-card">
 			<div class="form-section-title">基本情報</div>
 			<div class="form-grid">
@@ -98,13 +98,13 @@
 									<?php if ($i === 0): ?>
 										<label>品名</label>
 									<?php endif; ?>
-									<input type="text" name="items[<?= $i ?>][item_name]" placeholder="例：牛乳">
+									<input type="text" name="items[<?= $i ?>][item_name]" placeholder="例：牛乳" class="item-name-js">
 								</div>
 								<div class="item-category">
 									<?php if ($i === 0): ?>
 										<label>詳細カテゴリ</label>
 									<?php endif; ?>
-									<select name="items[<?= $i ?>][detail_category_id]">
+									<select name="items[<?= $i ?>][detail_category_id]" class="detail-category">
 										<option value="">選択してください</option>
 										<?php foreach ($detail_categories as $detail_category): ?>
 											<option value="<?= $detail_category['id'] ?>">

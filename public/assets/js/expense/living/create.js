@@ -42,6 +42,43 @@ $(function () {
 		calculateTotal();
 	});
 
+	// タブ遷移
+	$(document).on('keydown', '.item-name-js, .item-amount', function (e) {
+
+		if (e.key !== 'Tab' && e.key !== 'Enter') {
+			return;
+		}
+
+		const className = $(this).hasClass('item-name-js')
+			? '.item-name-js'
+			: '.item-amount';
+
+		const $inputs = $(className);
+		const index = $inputs.index(this);
+
+		const nextIndex = e.shiftKey
+			? index - 1
+			: index + 1;
+
+		// Enterの場合は必ずsubmitを防止
+		if (e.key === 'Enter') {
+			e.preventDefault();
+		}
+
+		if (nextIndex >= 0 && nextIndex < $inputs.length) {
+
+			// Tabの通常動作も防止
+			e.preventDefault();
+
+			$inputs.eq(nextIndex).focus();
+		}
+	});
+
+	$('.expense-form').on('keydown', function (e) {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+		}
+	});
 
 	// カテゴリ変更
 	$('#category-id').on('change', function () {
@@ -54,7 +91,7 @@ $(function () {
 			$itemsArea.show();
 			$detailCategories.prop('disabled', false);
 
-		} else if (categoryId === '2') {
+		} else if (categoryId === '2' || categoryId === '9') {
 			// 日用品：明細表示、詳細カテゴリ選択不可
 			$itemsArea.show();
 
