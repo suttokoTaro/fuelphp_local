@@ -8,6 +8,7 @@ class Controller_expense_living extends Controller_Base
 		$this->template->js = [
 			'expense/living/create.js',
 		];
+		echo \Asset::css('expense/living/create.css');
 	}
 
 	/**
@@ -28,8 +29,16 @@ class Controller_expense_living extends Controller_Base
 		if (Input::method() === 'POST')
 		{
 			$form = Input::post();
-			//$validation = $this->get_validation();
-			//if ($validation->run()) {
+			$validation = $this->get_validation();
+			
+			// メイン項目のバリデーション
+			if (!$validation->run())
+			{
+				$data['errors'] = $validation->error();
+				$data['form'] = $form;
+			}
+			else
+			{
 				$expense_date = Input::post('expense_date');
 				$year = (int) date('Y', strtotime($expense_date));
 				try
@@ -75,7 +84,9 @@ class Controller_expense_living extends Controller_Base
 					DB::rollback_transaction();
 					Log::error('生活費登録エラー: '.$e->getMessage());
 					Session::set_flash('error','登録に失敗しました。');
+					$data['form'] = $form;
 				}
+			}
 		}
 		$view = View::forge('expense/living/create', $data);
 		$this->template->content = $view;
