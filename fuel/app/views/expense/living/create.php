@@ -75,6 +75,9 @@
 					<label>メモ</label>
 					<textarea name="note" placeholder="必要に応じてメモを入力"></textarea>
 				</div>
+				<div class="form-group submit-group">
+					<button type="submit" class="button-primary">登録する</button>
+				</div>
 			</div>
 		</div>
 
@@ -89,33 +92,41 @@
 				<!-- 左側 -->
 				<div class="items-main">
 					<div id="items">
-						<div class="item-row">
-							<div class="item-name">
-								<label>品名</label>
-								<input type="text" name="items[0][item_name]" placeholder="例：牛乳">
-							</div>
-							<div class="item-category">
-								<label>詳細カテゴリ</label>
-								<select name="items[0][detail_category_id]">
-									<option value="">選択してください</option>
-									<?php foreach ($detail_categories as $detail_category): ?>
-										<option value="<?= $detail_category['id'] ?>">
-											<?= e($detail_category['name']) ?>
-										</option>
-									<?php endforeach; ?>
-								</select>
-							</div>
-							<div class="item-price">
-								<label>金額</label>
-								<div class="amount-input">
-									<input type="number" name="items[0][amount]" class="item-amount" min="0" placeholder="0">
-									<span>円</span>
+						<?php for ($i = 0; $i < 10; $i++): ?>
+							<div class="item-row">
+								<div class="item-name">
+									<?php if ($i === 0): ?>
+										<label>品名</label>
+									<?php endif; ?>
+									<input type="text" name="items[<?= $i ?>][item_name]" placeholder="例：牛乳">
+								</div>
+								<div class="item-category">
+									<?php if ($i === 0): ?>
+										<label>詳細カテゴリ</label>
+									<?php endif; ?>
+									<select name="items[0][detail_category_id]">
+										<option value="">選択してください</option>
+										<?php foreach ($detail_categories as $detail_category): ?>
+											<option value="<?= $detail_category['id'] ?>">
+												<?= e($detail_category['name']) ?>
+											</option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+								<div class="item-price">
+									<?php if ($i === 0): ?>
+										<label>金額</label>
+									<?php endif; ?>
+									<div class="amount-input">
+										<input type="number" name="items[<?= $i ?>][amount]" class="item-amount" min="0" placeholder="0">
+										<span>円</span>
+									</div>
+								</div>
+								<div class="item-delete">
+									<button type="button" class="remove-item">削除</button>
 								</div>
 							</div>
-							<div class="item-delete">
-								<button type="button" class="remove-item">削除</button>
-							</div>
-						</div>
+						<?php endfor; ?>
 					</div>
 				</div>
 				<!-- 右側 -->
@@ -136,9 +147,6 @@
 							</strong>
 						</div>
 					</div>
-					<button type="submit" class="button-primary">
-						登録する
-					</button>
 				</div>
 			</div>
 		</div>

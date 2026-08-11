@@ -61,7 +61,7 @@ class Controller_expense_living extends Controller_Base
 					foreach ($form['items'] as $index => $item)
 					{
 						// 完全な空行なら無視
-						if (empty($item['item_name']) && empty($item['amount']))
+						if (empty($item['item_name']))
 						{
 							continue;
 						}
