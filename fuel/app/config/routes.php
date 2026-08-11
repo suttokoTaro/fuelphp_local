@@ -19,5 +19,5 @@ return array(
 
 	'expense/living/create' => 'expense/living/create/index',
 	'expense/living/list' => 'expense/living/list/index',
-	'expense/living/detail/:id' => 'expense/living/detail/index/$1',
+	'expense/living/detailajax/:id' => 'expense/living/detailajax/index/$1',
 );

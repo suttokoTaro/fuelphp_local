@@ -6,7 +6,7 @@ class Controller_expense_living_list extends Controller_Base
 	{
 		parent::before();
 		$this->template->js = [
-			'expense/living/create.js',
+			'expense/living/list.js',
 		];
 		echo \Asset::css('expense/living/list.css');
 	}

@@ -5,7 +5,7 @@ $(function () {
 		const id = $(this).data('id');
 
 		$.ajax({
-			url: '/expense/living/detail/' + id,
+			url: '/expense/living/detailajax/' + id,
 			type: 'GET',
 			dataType: 'html'
 		})

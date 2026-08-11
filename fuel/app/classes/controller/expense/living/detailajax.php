@@ -1,16 +1,7 @@
 <?php
 
-class Controller_expense_living_detail extends Controller_Base
+class Controller_expense_living_detailajax extends Controller
 {
-	public function before()
-	{
-		parent::before();
-		$this->template->js = [
-			//'expense/living/create.js',
-		];
-		//echo \Asset::css('expense/living/list.css');
-	}
-
 	public function action_index($id)
 	{
 		$expense = Model_Expenseslivingmain::get_by_id($id);
@@ -25,9 +16,7 @@ class Controller_expense_living_detail extends Controller_Base
 			'expense' => $expense,
 			'items' => $items,
 		];
-		DEBUG::dump($data);
-		exit;
-
+		echo \Asset::css('expense/living/detailajax.css');
 		return Response::forge(
 			View::forge('expense/living/detail', $data)
 		);
