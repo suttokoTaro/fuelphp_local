@@ -98,13 +98,15 @@
 				<!-- 左側 -->
 				<div class="items-main">
 					<div id="items">
-						<?php for ($i = 0; $i < 10; $i++): ?>
+						<?php $row_count = max(10, count($items)); ?>
+						<?php for ($i = 0; $i < $row_count; $i++): ?>
+							<?php $item = $items[$i] ?? null; ?>
 							<div class="item-row">
 								<div class="item-name">
 									<?php if ($i === 0): ?>
 										<label>品名</label>
 									<?php endif; ?>
-									<input type="text" name="items[<?= $i ?>][item_name]" placeholder="例：牛乳" class="item-name-js">
+									<input type="text" name="items[<?= $i ?>][item_name]" placeholder="例：牛乳" class="item-name-js" value="<?= e($item['item_name'] ?? ''); ?>">
 								</div>
 								<div class="item-category">
 									<?php if ($i === 0): ?>
@@ -113,7 +115,7 @@
 									<select name="items[<?= $i ?>][detail_category_id]" class="detail-category">
 										<option value="">選択してください</option>
 										<?php foreach ($detail_categories as $detail_category): ?>
-											<option value="<?= $detail_category['id'] ?>">
+											<option value="<?= $detail_category['id'] ?>" <?= $item && $item['detail_category_id'] == $detail_category['id'] ? 'selected' : ''; ?>>
 												<?= e($detail_category['name']) ?>
 											</option>
 										<?php endforeach; ?>
@@ -124,7 +126,7 @@
 										<label>金額</label>
 									<?php endif; ?>
 									<div class="amount-input">
-										<input type="number" name="items[<?= $i ?>][amount]" class="item-amount" min="0" placeholder="0">
+										<input type="number" name="items[<?= $i ?>][amount]" class="item-amount" min="0" placeholder="0" value="<?= e($item['amount'] ?? ''); ?>">
 										<span>円</span>
 									</div>
 								</div>

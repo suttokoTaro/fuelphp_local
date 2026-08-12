@@ -37,4 +37,12 @@ class Model_Expenseslivingsub extends \Orm\Model
 		];
 		DB::query($sql)->parameters($params)->execute();
 	}
+
+	public static function delete_by_main_id($main_id)
+	{
+		$sql = 'DELETE FROM '.self::table().PHP_EOL;
+		$sql .= 'WHERE expenses_living_main_id = :main_id'.PHP_EOL;
+		$params = ['main_id' => $main_id ];
+		DB::query($sql)->parameters($params)->execute();
+	}
 }

@@ -58,7 +58,7 @@ class Controller_expense_living_create extends Controller_Base
 						'paid_by' => $form['paid_by'],
 						'note' => $form['note'],
 					];
-					$main_id = Model_Expenseslivingmain::insert($params);
+					$main_id = Model_Expenseslivingmain::insert_by_id($params);
 
 					foreach ($form['items'] as $index => $item)
 					{

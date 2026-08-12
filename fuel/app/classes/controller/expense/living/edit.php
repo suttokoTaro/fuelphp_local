@@ -30,27 +30,20 @@ class Controller_expense_living_edit extends Controller_Base
 
 		if (Input::method() === 'POST')
 		{
-			$form = Input::post();
 			$validation = $this->get_validation();
 			
 			// メイン項目のバリデーション
 			if (!$validation->run())
 			{
-				$data['errors'] = $validation->error();
-				$data['form'] = $form;
+				$this->data['errors'] = $validation->error();
 			}
 			else
 			{
-				$expense_date = Input::post('expense_date');
-				$year = (int) date('Y', strtotime($expense_date));
 				try
 				{
 					DB::start_transaction();
-					$number = Model_Expenseslivingmain::get_next_number($year);
 					$params = [
-						'year' => $year,
-						'number' => $number,
-						'expense_date' => $expense_date,
+						'expense_date' => $form['expense_date'],
 						'store_id' => $form['store_id'],
 						'title' => $form['title'],
 						'amount' => $form['amount'],
@@ -58,7 +51,10 @@ class Controller_expense_living_edit extends Controller_Base
 						'paid_by' => $form['paid_by'],
 						'note' => $form['note'],
 					];
-					$main_id = Model_Expenseslivingmain::insert($params);
+					Model_Expenseslivingmain::update_by_id($id, $params);
+					
+					// 既存明細削除
+					Model_Expenseslivingsub::delete_by_main_id($id);
 
 					foreach ($form['items'] as $index => $item)
 					{
@@ -69,7 +65,7 @@ class Controller_expense_living_edit extends Controller_Base
 						}
 						$detail_category_id = !empty($item['detail_category_id']) ? (int) $item['detail_category_id'] : null;
 						$params = [
-							'expenses_living_main_id' => $main_id,
+							'expenses_living_main_id' => $id,
 							'item_name' => $item['item_name'],
 							'amount' => (int) $item['amount'],
 							'detail_category_id' => $detail_category_id,
@@ -78,22 +74,18 @@ class Controller_expense_living_edit extends Controller_Base
 						Model_Expenseslivingsub::insert($params);
 					}
 					DB::commit_transaction();
-					Session::set_flash('success', '日常生活費を登録しました。');
-					return Response::redirect('expense/living/create');
+					Session::set_flash('success', '日常生活費を更新しました。');
+					return Response::redirect('expense/living/edit/'.$id);
 				}
 				catch (Exception $e)
 				{
 					DB::rollback_transaction();
 					Log::error('生活費登録エラー: '.$e->getMessage());
-					Session::set_flash('error','登録に失敗しました。');
+					Session::set_flash('error','更新に失敗しました。');
 					$data['form'] = $form;
 				}
 			}
 		}
-
-		// DEBUG::dump($this->data);
-		// exit;
-
 		$view = View::forge('expense/living/edit', $this->data);
 		$this->template->content = $view;
 		return;
@@ -120,7 +112,7 @@ class Controller_expense_living_edit extends Controller_Base
 			'expense_date' => $form['expense_date'] ?? $current_expense['expense_date'] ?? '',
 			'store_id' => $form['store_id'] ?? $current_expense['store_id'] ?? '',
 			'title' => $form['title'] ?? $current_expense['title'] ?? '',
-			'category_id ' => $form['category_id'] ?? $current_expense['category_id'] ?? '',
+			'category_id' => $form['category_id'] ?? $current_expense['category_id'] ?? '',
 			'paid_by' => $form['paid_by'] ?? $current_expense['paid_by'] ?? '',
 			'amount' => $form['amount'] ?? $current_expense['amount'] ?? '',
 			'note' => $form['note'] ?? $current_expense['note'] ?? '',
@@ -129,6 +121,9 @@ class Controller_expense_living_edit extends Controller_Base
 
 		$this->data['expense'] = $expense;
 		$this->data['items']   = $items;
+
+		// DEBUG::dump($this->data);
+		// exit;
 	}
 
 	/**

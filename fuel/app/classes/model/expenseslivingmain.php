@@ -81,7 +81,7 @@ class Model_Expenseslivingmain extends \Orm\Model
 	 * @param array $datas
 	 * @return int
 	 */
-	public static function insert($datas)
+	public static function insert_by_id($datas)
 	{
 		$sql = 'INSERT INTO '.self::table().' ('.PHP_EOL;
 		$sql .= '	year, number, expense_date, store_id, title, amount, category_id, paid_by, note, created_at, updated_at'.PHP_EOL;
@@ -102,5 +102,38 @@ class Model_Expenseslivingmain extends \Orm\Model
 		];
 		$result = DB::query($sql)->parameters($params)->execute();
 		return $result[0];
+	}
+
+	/**
+	 * 日常生活費を更新する
+	 * 
+	 * @param int $id
+	 * @param array $datas
+	 * @return void
+	 */
+	public static function update_by_id($id, $datas)
+	{
+		$sql = 'UPDATE '.self::table().' SET'.PHP_EOL;
+		$sql .= '	expense_date = :expense_date,'.PHP_EOL;
+		$sql .= '	store_id = :store_id,'.PHP_EOL;
+		$sql .= '	title = :title,'.PHP_EOL;
+		$sql .= '	amount = :amount,'.PHP_EOL;
+		$sql .= '	category_id = :category_id,'.PHP_EOL;
+		$sql .= '	paid_by = :paid_by,'.PHP_EOL;
+		$sql .= '	note = :note,'.PHP_EOL;
+		$sql .= '	updated_at = NOW()'.PHP_EOL;
+		$sql .= 'WHERE id = :id'.PHP_EOL;
+		$params = [
+			'id' => $id,
+			'expense_date' => $datas['expense_date'],
+			'store_id' => $datas['store_id'],
+			'title' => $datas['title'],
+			'amount' => $datas['amount'],
+			'category_id' => $datas['category_id'],
+			'paid_by' => $datas['paid_by'],
+			'note' => $datas['note'],
+		];
+
+		DB::query($sql)->parameters($params)->execute();
 	}
 }
