@@ -76,6 +76,31 @@ class Model_Expenseslivingmain extends \Orm\Model
 	}
 
 	/**
+	 * サマリ結果を取得する
+	 * 
+	 * @param int $year
+	 * @return array
+	 */
+	public static function get_summary_by_year($year)
+	{
+		$sql = 'SELECT'.PHP_EOL;
+		$sql .= '	MONTH(expense_date) AS month, category_id, SUM(amount) AS amount'.PHP_EOL;
+		$sql .= 'FROM '.self::table().' m'.PHP_EOL;
+		$sql .= 'WHERE year = :year'.PHP_EOL;
+		$sql .= 'GROUP BY MONTH(expense_date), category_id'.PHP_EOL;
+		$sql .= 'ORDER BY MONTH(expense_date), category_id'.PHP_EOL;
+
+		$params = ['year' => $year,];
+		$result = DB::query($sql)->parameters($params)->execute()->as_array();
+
+		$summary = [];
+		foreach ($result as $row) {
+			$summary[$row['month']][$row['category_id']] = $row['amount'];
+		}
+		return $summary;
+	}
+
+	/**
 	 * 日常生活費を登録する
 	 * 
 	 * @param array $datas
