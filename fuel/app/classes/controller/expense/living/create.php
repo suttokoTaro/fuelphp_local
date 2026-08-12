@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * 
+ * 日常生活費 新規登録画面
+ * 
+ */
 class Controller_expense_living_create extends Controller_Base
 {
 	public function before()
@@ -11,9 +16,6 @@ class Controller_expense_living_create extends Controller_Base
 		echo \Asset::css('expense/living/create.css');
 	}
 
-	/**
-	 * 日常生活費入力画面
-	 */
 	public function action_index()
 	{
 		$data = [

@@ -5,7 +5,7 @@
 
 <div class="expense-container">
 	<div class="page-header">
-		<h3>日常生活費の登録画面</h3>
+		<h3>日常生活費 登録画面</h3>
 	</div>
 	<?php if ($flash_success): ?>
 		<div class="message message-success">
@@ -34,46 +34,52 @@
 			<div class="form-grid">
 				<div class="form-group">
 					<label>支出日</label>
-					<input type="date" name="expense_date" value="<?php echo date('Y-m-d'); ?>">
+					<input type="date" name="expense_date" value="<?= $form['expense_date'] ?? date('Y-m-d'); ?>">
 				</div>
 				<div class="form-group">
 					<label>購入先</label>
 					<select name="store_id">
 						<?php foreach ($stores as $store): ?>
-							<option value="<?= $store['id'] ?>"><?= e($store['name']) ?></option>
+							<option value="<?= $store['id'] ?>" <?= ($form['store_id'] ?? 0) === $store['id'] ? 'selected' : '' ?>>
+								<?= e($store['name']) ?>
+							</option>
 						<?php endforeach; ?>
 					</select>
 				</div>
 				<div class="form-group form-group-full">
 					<label>タイトル</label>
-					<input type="text" name="title">
+					<input type="text" name="title" value="<?= e($form['title'] ?? '') ?>">
 				</div>
 				<div class="form-group">
 					<label>カテゴリ</label>
 					<select name="category_id" id="category-id">
 						<?php foreach ($categories as $category): ?>
-							<option value="<?= $category['id'] ?>"><?= e($category['name']) ?></option>
+							<option value="<?= $category['id'] ?>" <?= ($form['category_id'] ?? 0) === $category['id'] ? 'selected' : '' ?>>
+								<?= e($category['name']) ?>
+							</option>
 						<?php endforeach; ?>
 					</select>
 				</div>
 				<div class="form-group">
 					<label>立て替え者</label>
 					<select name="paid_by">
-						<option value="<?= Model_Expenseslivingmain::PAID_BY_SHARED ?>">共有口座</option>
-						<option value="<?= Model_Expenseslivingmain::PAID_BY_NAOYA ?>">直也</option>
-						<option value="<?= Model_Expenseslivingmain::PAID_BY_MAYU ?>">まゆ</option>
+						<?php foreach (Model_Expenseslivingmain::PAID_BY_MAP as $value => $label): ?>
+							<option value="<?= $value ?>" <?= ($form['paid_by'] ?? '') == $value ? 'selected' : '' ?>>
+								<?= e($label) ?>
+							</option>
+						<?php endforeach; ?>
 					</select>
 				</div>
 				<div class="form-group">
 					<label>金額</label>
 					<div class="amount-input">
-						<input type="number" name="amount" id="main-amount" min="0" placeholder="0">
+						<input type="number" name="amount" id="main-amount" min="0" placeholder="0" value="<?= e($form['amount'] ?? '') ?>">
 						<span>円</span>
 					</div>
 				</div>
 				<div class="form-group form-group-full">
 					<label>メモ</label>
-					<textarea name="note" placeholder="必要に応じてメモを入力"></textarea>
+					<textarea name="note"></textarea>
 				</div>
 				<div class="form-group submit-group">
 					<button type="submit" class="button-primary">登録する</button>
