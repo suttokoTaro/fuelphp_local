@@ -21,14 +21,15 @@ class Controller_expense_living_list extends Controller_Base
 			'paid_by' => $paid_by,
 		];
 
+		$expenses = Model_Expenseslivingmain::get_list($conditions);
+		$total_amount = array_sum(array_column($expenses, 'amount'));
+
 		$data = [
 			'year' => $year,
 			'paid_by' => $paid_by,
-			'expenses' => Model_Expenseslivingmain::get_list($conditions),
+			'expenses' => $expenses,
+			'total_amount' => $total_amount,
 		];
-
-		// DEBUG::dump($data);
-		// exit;
 
 		$view = View::forge('expense/living/list', $data);
 		$this->template->content = $view;

@@ -1,3 +1,5 @@
+<h2 class="page-title">生活費一覧</h2>
+
 <form method="get" action="">
 	<div class="filter-area">
 		<div class="filter-item">
@@ -20,6 +22,12 @@
 			</select>
 		</div>
 		<button type="submit">検索</button>
+		<div class="filter-total">
+			<span class="filter-total-label">合計金額</span>
+			<span class="filter-total-amount">
+				¥<?= number_format($total_amount) ?>
+			</span>
+		</div>
 	</div>
 </form>
 
