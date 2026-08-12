@@ -19,7 +19,7 @@ return array(
 
 	/* 日常生活費 */
 	'expense/living/create' => 'expense/living/create/index',                // 新規登録画面
-	'expense/living/edit/:id' => 'expense/living/edit/index',                // 編集画面
+	'expense/living/edit/:id' => 'expense/living/edit/index/$1',                // 編集画面
 	'expense/living/list' => 'expense/living/list/index',                    // 一覧画面
 	'expense/living/detailajax/:id' => 'expense/living/detailajax/index/$1', // 詳細ダイアログ画面
 );
