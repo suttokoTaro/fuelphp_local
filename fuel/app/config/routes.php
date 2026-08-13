@@ -25,6 +25,6 @@ return array(
 	'expense/living/detailajax/:id' => 'expense/living/detailajax/index/$1', // 詳細ダイアログ画面
 
 	/* 特別支出 */
-	'expense/special/category'      => 'expense/special/category/index',     // カテゴリ編集画面
-
+	'expense/special/category'             => 'expense/special/category/index',       // カテゴリ編集画面
+	'expense/special/category/get-by-year' => 'expense/special/categoryajax', // 
 );

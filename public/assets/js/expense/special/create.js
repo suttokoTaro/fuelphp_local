@@ -1,114 +1,131 @@
 $(function () {
 
-	let itemIndex = $('#item-rows .item-row').length;
+	let currentCategoryYear = null;
 
+	const initialExpenseDate = $('#expense-date').val();
+
+	if (initialExpenseDate) {
+		currentCategoryYear = initialExpenseDate.substring(0, 4);
+	}
 
 	// ==============================
-	// 明細追加
+	// 支出日変更
 	// ==============================
 
-	$('#add-item').on('click', function () {
+	$('#expense-date').on('change', function () {
 
-		const html = `
-			<tr class="item-row">
+		const expenseDate = $(this).val();
 
-				<td>
-					<input
-						type="text"
-						name="items[${itemIndex}][item_name]"
-						class="item-name"
-					>
-				</td>
+		if (!expenseDate) {
+			clearCategories();
+			return;
+		}
 
-				<td>
-					<input
-						type="number"
-						name="items[${itemIndex}][amount]"
-						class="item-amount"
-					>
-				</td>
+		const year = expenseDate.substring(0, 4);
 
-				<td class="action-cell">
-					<button
-						type="button"
-						class="btn-remove-item remove-item"
-					>
-						削除
-					</button>
-				</td>
+		// 同じ年なら取得し直さない
+		if (year === currentCategoryYear) {
+			return;
+		}
 
-			</tr>
-		`;
-
-		$('#item-rows').append(html);
-
-		itemIndex++;
+		loadCategories(year);
 
 	});
 
 
 	// ==============================
-	// 明細削除
+	// カテゴリ取得
 	// ==============================
 
-	$(document).on('click', '.remove-item', function () {
+	function loadCategories(year) {
 
-		$(this)
-			.closest('.item-row')
-			.remove();
+		const $category = $('#category-id');
+		const url = $category.data('url');
 
-		calculateItems();
-
-	});
-
-
-	// ==============================
-	// 明細金額変更
-	// ==============================
-
-	$(document).on('input', '.item-amount, #amount', function () {
-
-		calculateItems();
-
-	});
+		$category
+			.prop('disabled', true)
+			.empty()
+			.append(
+				$('<option>', {
+					value: '',
+					text: '読み込み中...'
+				})
+			);
 
 
-	// ==============================
-	// 明細集計
-	// ==============================
+		$.ajax({
+			url: url,
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				year: year
+			}
+		})
+		.done(function (categories) {
 
-	function calculateItems() {
+			$category.empty();
 
-		let itemsTotal = 0;
+			$category.append(
+				$('<option>', {
+					value: '',
+					text: '選択してください'
+				})
+			);
 
-		$('.item-amount').each(function () {
 
-			const amount = parseInt($(this).val(), 10) || 0;
+			$.each(categories, function (index, category) {
 
-			itemsTotal += amount;
+				$category.append(
+					$('<option>', {
+						value: category.id,
+						text: category.name
+					})
+				);
+
+			});
+
+
+			currentCategoryYear = year;
+
+		})
+		.fail(function () {
+
+			$category
+				.empty()
+				.append(
+					$('<option>', {
+						value: '',
+						text: 'カテゴリの取得に失敗しました'
+					})
+				);
+
+		})
+		.always(function () {
+
+			$category.prop('disabled', false);
 
 		});
-
-
-		const totalAmount =
-			parseInt($('#amount').val(), 10) || 0;
-
-
-		const unclassified =
-			totalAmount - itemsTotal;
-
-
-		$('#items-total').text(
-			itemsTotal.toLocaleString()
-		);
-
-		$('#unclassified-amount').text(
-			unclassified.toLocaleString()
-		);
 
 	}
 
 
-	calculateItems();
+	// ==============================
+	// カテゴリクリア
+	// ==============================
+
+	function clearCategories() {
+
+		$('#category-id')
+			.empty()
+			.append(
+				$('<option>', {
+					value: '',
+					text: '選択してください'
+				})
+			);
+
+		currentCategoryYear = null;
+
+	}
 
 });

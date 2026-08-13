@@ -16,8 +16,7 @@
 			<!-- カテゴリ -->
 			<div class="form-group">
 				<label for="category-id">カテゴリ</label>
-				<select id="category-id" name="category_id">
-					<option value="">選択してください</option>
+				<select id="category-id" name="category_id" data-url="<?= \Uri::create('expense/special/category/get-by-year') ?>">
 					<?php foreach ($categories as $category): ?>
 						<option value="<?= e($category['id']) ?>" <?= Input::post('category_id') == $category['id'] ? 'selected' : '' ?>>
 							<?= e($category['name']) ?>
