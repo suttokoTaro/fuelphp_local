@@ -79,8 +79,8 @@ $menus = [
 			[
 				'label' => '新規登録',
 				'url' => 'expense/special/create',
-				'controller' => 'Controller_Expense_Special',
-				'action' => 'create',
+				'controller' => 'Controller_Expense_Special_Create',
+				'action' => 'index',
 			],
 			[
 				'label' => '一覧',
