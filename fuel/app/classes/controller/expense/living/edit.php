@@ -2,7 +2,7 @@
 
 /**
  * 
- * 日常生活費 編集画面
+ * 日常生活出費 編集画面
  * 
  */
 class Controller_expense_living_edit extends Controller_Base

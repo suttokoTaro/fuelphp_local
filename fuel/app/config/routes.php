@@ -17,10 +17,14 @@ return array(
 
 	'top' => 'top/index',
 
-	/* 日常生活費 */
+	/* 日常生活出費 */
 	'expense/living/create'         => 'expense/living/create/index',        // 新規登録画面
 	'expense/living/edit/:id'       => 'expense/living/edit/index/$1',       // 編集画面
 	'expense/living/list'           => 'expense/living/list/index',          // 一覧画面
 	'expense/living/summary'        => 'expense/living/summary/index',       // 一覧画面
 	'expense/living/detailajax/:id' => 'expense/living/detailajax/index/$1', // 詳細ダイアログ画面
+
+	/* 特別支出 */
+	'expense/special/category'      => 'expense/special/category/index',  // カテゴリ編集画面
+
 );

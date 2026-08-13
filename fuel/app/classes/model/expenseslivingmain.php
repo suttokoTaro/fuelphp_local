@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * 
+ * 日常生活出費_メイン
+ * 
+ */
 class Model_Expenseslivingmain extends \Orm\Model
 {
 	protected static $_table_name = 'expenses_living_main';

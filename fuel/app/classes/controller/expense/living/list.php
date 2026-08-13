@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * 
+ * 日常生活出費 一覧画面
+ * 
+ */
 class Controller_Expense_Living_List extends Controller_Base
 {
 	public function before()

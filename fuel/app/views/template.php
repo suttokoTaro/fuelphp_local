@@ -97,8 +97,8 @@ $menus = [
 			[
 				'label' => 'カテゴリ編集',
 				'url' => 'expense/special/category',
-				'controller' => 'Controller_Expense_Special',
-				'action' => 'category',
+				'controller' => 'Controller_Expense_Special_Category',
+				'action' => 'index',
 			],
 		],
 	],

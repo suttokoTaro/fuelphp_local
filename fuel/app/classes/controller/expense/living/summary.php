@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * 
+ * 日常生活出費 サマリ画面
+ * 
+ */
 class Controller_Expense_Living_Summary extends Controller_Base
 {
 	public function before()
 	{
 		parent::before();
 		$this->template->js = [
-			//'expense/living/list.js',
+			//'expense/living/summary.js',
 		];
 		echo \Asset::css('expense/living/summary.css');
 	}

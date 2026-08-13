@@ -2,7 +2,7 @@
 
 /**
  * 
- * 日常生活費 新規登録画面
+ * 日常生活出費 新規登録画面
  * 
  */
 class Controller_Expense_Living_Create extends Controller_Base

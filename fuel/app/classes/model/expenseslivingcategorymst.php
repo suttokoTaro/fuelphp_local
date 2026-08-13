@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * 
+ * 日常生活出費_カテゴリマスタ
+ * 
+ */
 class Model_Expenseslivingcategorymst extends \Orm\Model
 {
 	protected static $_table_name = 'expenses_living_category_mst';

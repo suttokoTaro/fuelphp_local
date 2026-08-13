@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * 
+ * 特別支出 カテゴリ編集画面
+ * 
+ */
+class Controller_Expense_Special_Category extends Controller_Base
+{
+	public function before()
+	{
+		parent::before();
+		$this->template->js = [
+			'expense/special/category.js',
+		];
+		//echo \Asset::css('expense/special/category.css');
+	}
+
+	public function action_index()
+	{
+		$year = Input::get('year', date('Y'));
+		$categories = Model_Expensesspecialcategorymst::get_by_year($year);
+
+		$data = [
+			'year' => $year,
+			'categories' => $categories,
+		];
+		DEBUG::dump($data);
+		exit;
+
+		$view = View::forge('expense/special/category', $data);
+		$this->template->content = $view;
+		return;
+	}
+}

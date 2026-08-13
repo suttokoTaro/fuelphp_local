@@ -131,6 +131,21 @@ INSERT INTO `expenses_living_detail_category_mst` (`id`, `category_id`, `name`, 
 
 
 -- 特別支出関連 ------------------------------------------------------------------------------------------------------------------------------
+-- 
+CREATE TABLE `expenses_special_category_mst` (
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`year` INT(11) NOT NULL,
+	`name` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`sort_order` INT(11) NOT NULL DEFAULT '0',
+	`is_active` TINYINT(1) NOT NULL DEFAULT '1',
+	`created_at` DATETIME NOT NULL,
+	`updated_at` DATETIME NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `uq_year_name` (`year`, `name`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
 
 
 
