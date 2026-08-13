@@ -153,8 +153,8 @@ body {
 /* 家計簿全体 */
 
 .nav-section-all .nav-section-title {
-	background: #f0f1f3;
-	color: #555;
+	background: #fff4cc;
+	color: #806000;
 }
 
 
@@ -186,6 +186,7 @@ body {
 
 .nav-list li {
 	margin: 2px 0;
+	margin-left: 16px;
 }
 
 .nav-list a {
@@ -222,6 +223,15 @@ body {
 .nav-list a:hover {
 	background: #f3f4f6;
 	color: #222;
+}
+/* hover */
+.nav-section-all .nav-list a:hover {
+	background: #fff9e6;
+	color: #806000;
+}
+
+.nav-section-all .nav-list a:hover::before {
+	background: #d6a800;
 }
 
 
@@ -260,47 +270,48 @@ body {
 	box-sizing: border-box;
 }
 
-
 /* ========================================
    現在表示中のメニュー
 ======================================== */
 
 .nav-list a.active {
 	font-weight: 700;
+	background: #fff;
 }
 
 
-/* 家計簿全体 */
-
+/* 現在表示中 */
 .nav-section-all .nav-list a.active {
-	background: #eceef1;
-	color: #333;
+	background: #fffdf5;
+	color: #806000;
+	box-shadow: inset 3px 0 0 #e0ad00;
 }
 
 .nav-section-all .nav-list a.active::before {
-	background: #666;
+	display: none;
 }
-
 
 /* 日常生活出費 */
 
 .nav-section-living .nav-list a.active {
-	background: #dcecff;
+	background: #f7faff;
 	color: #1f5f9f;
+	box-shadow: inset 3px 0 0 #347fc4;
 }
 
 .nav-section-living .nav-list a.active::before {
-	background: #347fc4;
+	display: none;
 }
 
 
 /* 特別支出 */
 
 .nav-section-special .nav-list a.active {
-	background: #ddf1e3;
+	background: #f7fcf8;
 	color: #246b3b;
+	box-shadow: inset 3px 0 0 #3d8c57;
 }
 
 .nav-section-special .nav-list a.active::before {
-	background: #3d8c57;
+	display: none;
 }

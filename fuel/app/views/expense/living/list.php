@@ -1,4 +1,4 @@
-<h2 class="page-title">生活費一覧</h2>
+<h2 class="page-title">日常生活出費 一覧</h2>
 
 <form method="get" action="">
 	<div class="filter-area">

@@ -5,7 +5,7 @@
 
 <div class="expense-container">
 	<div class="page-header">
-		<h3>日常生活費 登録画面</h3>
+		<h3>日常生活出費 新規登録</h3>
 	</div>
 	<?php if ($flash_success): ?>
 		<div class="message message-success">

@@ -1,6 +1,6 @@
 <div class="summary-page">
 
-	<h2>生活費サマリ</h2>
+	<h2>日常生活出費 サマリ</h2>
 
 	<form method="get" class="summary-filter">
 		<label for="year">年</label>

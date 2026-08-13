@@ -5,7 +5,7 @@
 
 <div class="expense-container">
 	<div class="page-header">
-		<h3>日常生活費 編集画面</h3>
+		<h3>日常生活出費 編集</h3>
 	</div>
 	<?php if ($flash_success): ?>
 		<div class="message message-success">

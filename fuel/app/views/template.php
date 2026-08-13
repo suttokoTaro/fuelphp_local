@@ -59,7 +59,13 @@ $menus = [
 				'action' => 'index',
 			],
 			[
-				'label' => '店舗マスタ編集',
+				'label' => '食費サマリ',
+				'url' => 'expense/living/summary',
+				'controller' => 'Controller_Expense_Living_Summary',
+				'action' => 'index',
+			],
+			[
+				'label' => '（仮）店舗マスタ編集',
 				'url' => 'expense/living/store',
 				'controller' => 'Controller_Expense_Living',
 				'action' => 'store',
