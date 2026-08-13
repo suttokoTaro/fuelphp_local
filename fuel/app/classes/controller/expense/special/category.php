@@ -13,7 +13,7 @@ class Controller_Expense_Special_Category extends Controller_Base
 		$this->template->js = [
 			'expense/special/category.js',
 		];
-		//echo \Asset::css('expense/special/category.css');
+		echo \Asset::css('expense/special/category.css');
 	}
 
 	public function action_index()
@@ -25,8 +25,6 @@ class Controller_Expense_Special_Category extends Controller_Base
 			'year' => $year,
 			'categories' => $categories,
 		];
-		DEBUG::dump($data);
-		exit;
 
 		$view = View::forge('expense/special/category', $data);
 		$this->template->content = $view;
