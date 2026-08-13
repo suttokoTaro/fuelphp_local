@@ -61,7 +61,7 @@ $menus = [
 			[
 				'label' => '食費サマリ',
 				'url' => 'expense/living/summary',
-				'controller' => 'Controller_Expense_Living_Summary',
+				'controller' => 'Controller_Expense_Living_Summary_',
 				'action' => 'index',
 			],
 			[
