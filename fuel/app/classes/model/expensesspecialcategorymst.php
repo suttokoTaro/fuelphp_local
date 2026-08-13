@@ -28,6 +28,18 @@ class Model_Expensesspecialcategorymst extends \Orm\Model
 		$result = DB::query($sql)->parameters($params)->execute()->as_array();
 		return $result;
 	}
+
+	public static function get_by_id_and_year($id, $year)
+	{
+		$sql = 'SELECT id, year, name'.PHP_EOL;
+		$sql .= 'FROM '.self::table().PHP_EOL;
+		$sql .= 'WHERE id = :id'.PHP_EOL;
+		$sql .= 'AND year = :year'.PHP_EOL;
+		$sql .= 'AND is_active = '.self::IS_ACTIVE_ON.PHP_EOL;
+
+		$params = ['id' => $id, 'year' => $year,];
+		return DB::query($sql)->parameters($params)->execute()->current();
+	}
 	
 	public static function insert_data($datas)
 	{
