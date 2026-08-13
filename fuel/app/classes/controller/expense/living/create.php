@@ -5,7 +5,7 @@
  * 日常生活費 新規登録画面
  * 
  */
-class Controller_expense_living_create extends Controller_Base
+class Controller_Expense_Living_Create extends Controller_Base
 {
 	public function before()
 	{

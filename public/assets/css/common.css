@@ -60,3 +60,247 @@
   background: #f2f4f8;
   min-height: calc(100vh - 60px);
 }
+
+
+/* ========================================
+   全体レイアウト
+======================================== */
+
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+}
+
+body {
+	background: #f5f6f8;
+	color: #333;
+}
+
+
+/* ========================================
+   ヘッダー
+======================================== */
+
+.app-header {
+	height: 56px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 24px;
+	background: #ffffff;
+	border-bottom: 1px solid #dfe3e8;
+	box-sizing: border-box;
+}
+
+.app-title-link {
+	text-decoration: none;
+	color: inherit;
+}
+
+.app-title {
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 0.4px;
+	color: #333;
+}
+
+
+/* ========================================
+   メインレイアウト
+======================================== */
+
+.app-layout {
+	display: flex;
+	min-height: calc(100vh - 56px);
+}
+
+
+/* ========================================
+   サイドバー
+======================================== */
+
+.app-sidebar {
+	width: 220px;
+	flex-shrink: 0;
+	background: #ffffff;
+	border-right: 1px solid #dfe3e8;
+	box-sizing: border-box;
+}
+
+.sidebar-nav {
+	padding: 16px 12px;
+}
+
+
+/* ========================================
+   ナビゲーション セクション
+======================================== */
+
+.nav-section {
+	margin-bottom: 22px;
+}
+
+.nav-section-title {
+	padding: 7px 10px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+
+/* 家計簿全体 */
+
+.nav-section-all .nav-section-title {
+	background: #f0f1f3;
+	color: #555;
+}
+
+
+/* 日常生活出費 */
+
+.nav-section-living .nav-section-title {
+	background: #e7f1ff;
+	color: #2563a9;
+}
+
+
+/* 特別支出 */
+
+.nav-section-special .nav-section-title {
+	background: #e8f5ec;
+	color: #287844;
+}
+
+
+/* ========================================
+   ナビゲーション リンク
+======================================== */
+
+.nav-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.nav-list li {
+	margin: 2px 0;
+}
+
+.nav-list a {
+	position: relative;
+	display: block;
+	padding: 7px 10px 7px 20px;
+	border-radius: 5px;
+	color: #555;
+	text-decoration: none;
+	font-size: 13px;
+	transition:
+		background-color 0.15s,
+		color 0.15s;
+}
+
+
+/* 左側の小さいマーカー */
+
+.nav-list a::before {
+	content: "";
+	position: absolute;
+	left: 9px;
+	top: 50%;
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: #bbb;
+	transform: translateY(-50%);
+}
+
+
+/* hover */
+
+.nav-list a:hover {
+	background: #f3f4f6;
+	color: #222;
+}
+
+
+/* 日常生活出費 hover */
+
+.nav-section-living .nav-list a:hover {
+	background: #edf5ff;
+	color: #2563a9;
+}
+
+.nav-section-living .nav-list a:hover::before {
+	background: #4a90d9;
+}
+
+
+/* 特別支出 hover */
+
+.nav-section-special .nav-list a:hover {
+	background: #edf8f0;
+	color: #287844;
+}
+
+.nav-section-special .nav-list a:hover::before {
+	background: #4b9b64;
+}
+
+
+/* ========================================
+   コンテンツ
+======================================== */
+
+.app-main {
+	flex: 1;
+	min-width: 0;
+	padding: 24px 28px;
+	box-sizing: border-box;
+}
+
+
+/* ========================================
+   現在表示中のメニュー
+======================================== */
+
+.nav-list a.active {
+	font-weight: 700;
+}
+
+
+/* 家計簿全体 */
+
+.nav-section-all .nav-list a.active {
+	background: #eceef1;
+	color: #333;
+}
+
+.nav-section-all .nav-list a.active::before {
+	background: #666;
+}
+
+
+/* 日常生活出費 */
+
+.nav-section-living .nav-list a.active {
+	background: #dcecff;
+	color: #1f5f9f;
+}
+
+.nav-section-living .nav-list a.active::before {
+	background: #347fc4;
+}
+
+
+/* 特別支出 */
+
+.nav-section-special .nav-list a.active {
+	background: #ddf1e3;
+	color: #246b3b;
+}
+
+.nav-section-special .nav-list a.active::before {
+	background: #3d8c57;
+}

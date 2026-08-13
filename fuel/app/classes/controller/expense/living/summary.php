@@ -1,6 +1,6 @@
 <?php
 
-class Controller_expense_living_summary extends Controller_Base
+class Controller_Expense_Living_Summary extends Controller_Base
 {
 	public function before()
 	{
