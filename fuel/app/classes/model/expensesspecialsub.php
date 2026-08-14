@@ -7,7 +7,7 @@
  */
 class Model_Expensesspecialsub extends \Orm\Model
 {
-	protected static $_table_name = 'expenses_special_main';
+	protected static $_table_name = 'expenses_special_sub';
 
 	
 	public static function insert_data($datas)
@@ -20,7 +20,7 @@ class Model_Expensesspecialsub extends \Orm\Model
 		$sql .= '	created_at,'.PHP_EOL;
 		$sql .= '	updated_at'.PHP_EOL;
 		$sql .= ') VALUES ('.PHP_EOL;
-		$sql .= '	:expenses_special_main_id,'.PHP_EOL;
+		$sql .= '	:main_id,'.PHP_EOL;
 		$sql .= '	:item_name,'.PHP_EOL;
 		$sql .= '	:amount,'.PHP_EOL;
 		$sql .= '	:sort_order,'.PHP_EOL;
@@ -29,8 +29,8 @@ class Model_Expensesspecialsub extends \Orm\Model
 		$sql .= ')';
 
 		$params = [
-			'expenses_special_main_id'
-				=> $datas['expenses_special_main_id'],
+			'main_id'
+				=> $datas['main_id'],
 
 			'item_name'
 				=> $datas['item_name'],

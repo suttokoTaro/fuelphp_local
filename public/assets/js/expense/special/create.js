@@ -128,4 +128,25 @@ $(function () {
 
 	}
 
+	// 金額変更時
+	$(document).on('input', '.item-amount, #amount', function () {
+		calculateTotal();
+	});
+	// 合計金額の再計算
+	function calculateTotal() {
+		let itemsTotal = 0;
+		$('.item-amount').each(function () {
+			itemsTotal += Number($(this).val()) || 0;
+		});
+
+		const mainAmount = Number($('#amount').val()) || 0;
+		const unclassifiedAmount = mainAmount - itemsTotal;
+		$('#items-total').text(
+			itemsTotal.toLocaleString()
+		);
+		$('#unclassified-amount').text(
+			unclassifiedAmount.toLocaleString()
+		);
+	}
+
 });

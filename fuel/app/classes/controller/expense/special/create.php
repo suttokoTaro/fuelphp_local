@@ -8,7 +8,7 @@
 class Controller_Expense_Special_Create extends Controller_Base
 {
 	private $data = [];
-	
+
 	public function before()
 	{
 		parent::before();
@@ -70,7 +70,7 @@ class Controller_Expense_Special_Create extends Controller_Base
 								continue;
 							}
 							$params = [
-								'expenses_special_main_id' => $main_id,
+								'main_id' => $main_id,
 								'item_name' => $item['item_name'],
 								'amount' => (int) $item['amount'],
 								'sort_order' => $index + 1,
