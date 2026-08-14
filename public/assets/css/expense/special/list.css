@@ -1,0 +1,310 @@
+/* ========================================
+   特別支出 一覧
+======================================== */
+
+.special-page-title {
+	color: #276749;
+	margin-bottom: 16px;
+}
+
+
+/* ========================================
+   検索エリア
+======================================== */
+
+.special-filter-area {
+	display: flex;
+	align-items: flex-end;
+	gap: 14px;
+
+	padding: 16px 18px;
+	margin-bottom: 18px;
+
+	background: #f3faf6;
+	border: 1px solid #d5eadc;
+	border-radius: 10px;
+
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.special-filter-area .filter-item {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.special-filter-area .filter-item label {
+	font-size: 12px;
+	font-weight: bold;
+	color: #52705f;
+}
+
+.special-filter-area select {
+	height: 36px;
+	min-width: 130px;
+
+	padding: 0 30px 0 10px;
+
+	border: 1px solid #c8ded0;
+	border-radius: 6px;
+
+	background-color: #fff;
+
+	font-size: 14px;
+	color: #333;
+}
+
+.special-filter-area select:focus {
+	outline: none;
+	border-color: #48a868;
+	box-shadow: 0 0 0 2px rgba(72, 168, 104, 0.12);
+}
+
+
+/* 検索ボタン */
+
+.btn-search {
+	height: 36px;
+	padding: 0 22px;
+
+	border: none;
+	border-radius: 6px;
+
+	background: #3d9960;
+	color: #fff;
+
+	font-size: 14px;
+	font-weight: bold;
+
+	cursor: pointer;
+
+	transition: 0.15s;
+}
+
+.btn-search:hover {
+	background: #328052;
+}
+
+
+/* ========================================
+   合計金額
+======================================== */
+
+.filter-total {
+	margin-left: auto;
+
+	display: flex;
+	align-items: center;
+	gap: 12px;
+
+	height: 36px;
+	padding: 0 16px;
+
+	background: #fff;
+	border: 1px solid #cce3d4;
+	border-radius: 7px;
+}
+
+.filter-total-label {
+	font-size: 12px;
+	font-weight: bold;
+	color: #63806d;
+}
+
+.filter-total-amount {
+	font-size: 20px;
+	font-weight: bold;
+	color: #267447;
+	letter-spacing: 0.5px;
+}
+
+
+/* ========================================
+   一覧
+======================================== */
+
+.special-list-wrapper {
+	background: #fff;
+
+	border: 1px solid #dce8e0;
+	border-radius: 10px;
+
+	overflow: hidden;
+
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.special-expense-list {
+	width: 100%;
+
+	border-collapse: collapse;
+	border-spacing: 0;
+
+	font-size: 14px;
+}
+
+
+/* ヘッダー */
+
+.special-expense-list thead {
+	background: #e7f4eb;
+}
+
+.special-expense-list th {
+	padding: 11px 12px;
+
+	border-bottom: 2px solid #c7dfcf;
+
+	color: #345d43;
+
+	font-size: 13px;
+	font-weight: bold;
+
+	text-align: left;
+	white-space: nowrap;
+}
+
+
+/* データ */
+
+.special-expense-list td {
+	padding: 10px 12px;
+
+	border-bottom: 1px solid #edf1ee;
+
+	color: #444;
+
+	vertical-align: middle;
+}
+
+.special-expense-list tbody tr:last-child td {
+	border-bottom: none;
+}
+
+
+/* hover */
+
+.special-expense-list tbody tr {
+	transition: background-color 0.12s;
+}
+
+.special-expense-list tbody tr:hover {
+	background: #f6fbf8;
+}
+
+
+/* No */
+
+.special-expense-list .number {
+	color: #777;
+}
+
+
+/* タイトル */
+
+.special-expense-list .title {
+	font-weight: 500;
+}
+
+
+/* 金額 */
+
+.special-expense-list .amount {
+	font-weight: bold;
+	color: #2d6e45;
+	white-space: nowrap;
+}
+
+
+/* ========================================
+   カテゴリ
+======================================== */
+
+.category-badge {
+	display: inline-block;
+
+	padding: 4px 10px;
+
+	background: #e2f3e8;
+	border: 1px solid #c9e5d2;
+	border-radius: 20px;
+
+	color: #34704a;
+
+	font-size: 12px;
+	font-weight: bold;
+}
+
+
+/* ========================================
+   操作
+======================================== */
+
+.operation {
+	white-space: nowrap;
+}
+
+.btn-edit,
+.btn-detail {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+
+	height: 28px;
+	padding: 0 11px;
+
+	border-radius: 5px;
+
+	font-size: 12px;
+	font-weight: bold;
+
+	text-decoration: none;
+
+	cursor: pointer;
+
+	transition: 0.15s;
+}
+
+
+/* 編集 */
+
+.btn-edit {
+	background: #3f9b62;
+	border: 1px solid #3f9b62;
+
+	color: #fff;
+}
+
+.btn-edit:hover {
+	background: #328052;
+}
+
+
+/* 詳細 */
+
+.btn-detail {
+	margin-left: 4px;
+
+	background: #fff;
+	border: 1px solid #75ae88;
+
+	color: #3b7650;
+}
+
+.btn-detail:hover {
+	background: #edf8f1;
+}
+
+
+/* ========================================
+   データなし
+======================================== */
+
+.special-expense-list .empty {
+	padding: 40px;
+
+	text-align: center;
+
+	color: #999;
+	font-size: 14px;
+}

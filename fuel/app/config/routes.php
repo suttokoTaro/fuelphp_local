@@ -27,5 +27,6 @@ return array(
 
 	/* 特別支出 */
 	'expense/special/category'             => 'expense/special/category/index', // カテゴリ編集画面
+	'expense/special/list'                 => 'expense/special/list/index',     // 一覧画面
 	'expense/special/category/get-by-year' => 'expense/special/categoryajax',   // カテゴリ取得（ajax）
 );

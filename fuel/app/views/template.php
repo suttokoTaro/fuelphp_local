@@ -84,8 +84,8 @@ $menus = [
 			],
 			[
 				'label' => '一覧',
-				'url' => 'expense/special/index',
-				'controller' => 'Controller_Expense_Special',
+				'url' => 'expense/special/list',
+				'controller' => 'Controller_Expense_Special_List',
 				'action' => 'index',
 			],
 			[
