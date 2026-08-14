@@ -20,15 +20,14 @@ class Controller_expense_living_edit extends Controller_Base
 
 	public function action_index($id)
 	{
-		// viewに受け渡すデータの初期化
-		$this->data = ['errors' => [],];
-
 		// フォーム値の取得
-		$form = Input::post();
+		$form = \Input::post();
 
+		// viewに受け渡すデータのセット
 		$this->set_data($id, $form);
 
-		if (Input::method() === 'POST')
+		// POSTの場合
+		if (\Input::method() === 'POST')
 		{
 			$validation = $this->get_validation();
 			
@@ -41,7 +40,9 @@ class Controller_expense_living_edit extends Controller_Base
 			{
 				try
 				{
-					DB::start_transaction();
+					\DB::start_transaction();
+
+					// メイン項目の更新
 					$params = [
 						'expense_date' => $form['expense_date'],
 						'store_id' => $form['store_id'],
@@ -53,12 +54,12 @@ class Controller_expense_living_edit extends Controller_Base
 					];
 					Model_Expenseslivingmain::update_by_id($id, $params);
 					
-					// 既存明細削除
+					// 既存明細の削除
 					Model_Expenseslivingsub::delete_by_main_id($id);
 
 					foreach ($form['items'] as $index => $item)
 					{
-						// 完全な空行なら無視
+						// 明細名が空の場合スルー
 						if (empty($item['item_name']))
 						{
 							continue;
@@ -73,26 +74,38 @@ class Controller_expense_living_edit extends Controller_Base
 						];
 						Model_Expenseslivingsub::insert($params);
 					}
-					DB::commit_transaction();
-					Session::set_flash('success', '日常生活費を更新しました。');
-					return Response::redirect('expense/living/edit/'.$id);
+
+					\DB::commit_transaction();
+					\Session::set_flash('success', '日常生活費を更新しました。');
+					return \Response::redirect('expense/living/edit/'.$id);
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
-					DB::rollback_transaction();
-					Log::error('生活費登録エラー: '.$e->getMessage());
-					Session::set_flash('error','更新に失敗しました。');
-					$data['form'] = $form;
+					\DB::rollback_transaction();
+					\Log::error('生活費登録エラー: '.$e->getMessage());
+					\Session::set_flash('error','更新に失敗しました。');
+					$this->data['form'] = $form;
 				}
 			}
 		}
-		$view = View::forge('expense/living/edit', $this->data);
+		$view = \View::forge('expense/living/edit', $this->data);
 		$this->template->content = $view;
 		return;
 	}
 
+	/**
+	 * Viewに渡すデータのセット
+	 * 
+	 * @param mixed $id
+	 * @param mixed $form
+	 * @throws HttpNotFoundException
+	 * @return void
+	 */
 	private function set_data($id, $form)
 	{
+		// 初期化
+		$this->data = ['errors' => [],];
+		
 		// 画面に必要なマスタ情報の取得
 		$categories        = Model_Expenseslivingcategorymst::get_all();
 		$stores            = Model_Expenseslivingstoremst::get_all();
@@ -103,7 +116,8 @@ class Controller_expense_living_edit extends Controller_Base
 
 		// DBに登録済み情報の取得
 		$current_expense = Model_Expenseslivingmain::get_by_id($id);
-		if (empty($current_expense)) {
+		if (empty($current_expense))
+		{
 			throw new HttpNotFoundException();
 		}
 		$current_items = Model_Expenseslivingsub::get_by_main_id($id);
@@ -121,17 +135,14 @@ class Controller_expense_living_edit extends Controller_Base
 
 		$this->data['expense'] = $expense;
 		$this->data['items']   = $items;
-
-		// DEBUG::dump($this->data);
-		// exit;
 	}
 
 	/**
-	 * バリデーション
+	 * バリデーションの設定
 	 */
 	private function get_validation()
 	{
-		$validation = Validation::forge();
+		$validation = \Validation::forge();
 
 		$validation
 			->add('expense_date', '支出日')
@@ -163,5 +174,4 @@ class Controller_expense_living_edit extends Controller_Base
 
 		return $validation;
 	}
-
 }
