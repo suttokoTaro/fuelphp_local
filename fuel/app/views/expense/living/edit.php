@@ -1,6 +1,6 @@
 <?php
-	$flash_error = Session::get_flash('error');
-	$flash_success = Session::get_flash('success');
+	$flash_error = \Session::get_flash('error');
+	$flash_success = \Session::get_flash('success');
 ?>
 
 <div class="expense-container">
@@ -9,12 +9,12 @@
 	</div>
 	<?php if ($flash_success): ?>
 		<div class="message message-success">
-			<?= e($flash_success) ?>
+			<?= e($flash_success); ?>
 		</div>
 	<?php endif; ?>
 	<?php if ($flash_error): ?>
 		<div class="message message-error">
-			<?= e($flash_error) ?>
+			<?= e($flash_error); ?>
 		</div>
 	<?php endif; ?>
 	<?php if (!empty($errors)): ?>
@@ -22,7 +22,7 @@
 			<div class="message-title">入力内容を確認してください</div>
 			<ul>
 				<?php foreach ($errors as $error): ?>
-					<li><?= e($error) ?></li>
+					<li><?= e($error); ?></li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
@@ -40,22 +40,22 @@
 					<label>購入先</label>
 					<select name="store_id">
 						<?php foreach ($stores as $store): ?>
-							<option value="<?= $store['id'] ?>" <?= ($expense['store_id'] ?? 0) === $store['id'] ? 'selected' : '' ?>>
-								<?= e($store['name']) ?>
+							<option value="<?= $store['id']; ?>" <?= ($expense['store_id'] ?? 0) === $store['id'] ? 'selected' : ''; ?>>
+								<?= e($store['name']); ?>
 							</option>
 						<?php endforeach; ?>
 					</select>
 				</div>
 				<div class="form-group form-group-full">
 					<label>タイトル</label>
-					<input type="text" name="title" value="<?= e($expense['title'] ?? '') ?>">
+					<input type="text" name="title" value="<?= e($expense['title'] ?? ''); ?>">
 				</div>
 				<div class="form-group">
 					<label>カテゴリ</label>
 					<select name="category_id" id="category-id">
 						<?php foreach ($categories as $category): ?>
-							<option value="<?= $category['id'] ?>" <?= ($expense['category_id'] ?? 0) === $category['id'] ? 'selected' : '' ?>>
-								<?= e($category['name']) ?>
+							<option value="<?= $category['id']; ?>" <?= ($expense['category_id'] ?? 0) === $category['id'] ? 'selected' : ''; ?>>
+								<?= e($category['name']); ?>
 							</option>
 						<?php endforeach; ?>
 					</select>
@@ -64,8 +64,8 @@
 					<label>立て替え者</label>
 					<select name="paid_by">
 						<?php foreach (Model_Expenseslivingmain::PAID_BY_MAP as $value => $label): ?>
-							<option value="<?= $value ?>" <?= ($expense['paid_by'] ?? '') == $value ? 'selected' : '' ?>>
-								<?= e($label) ?>
+							<option value="<?= $value; ?>" <?= ($expense['paid_by'] ?? '') == $value ? 'selected' : ''; ?>>
+								<?= e($label); ?>
 							</option>
 						<?php endforeach; ?>
 					</select>
@@ -73,13 +73,13 @@
 				<div class="form-group">
 					<label>金額</label>
 					<div class="amount-input">
-						<input type="number" name="amount" id="main-amount" min="0" placeholder="0" value="<?= e($expense['amount'] ?? '') ?>">
+						<input type="number" name="amount" id="main-amount" min="0" placeholder="0" value="<?= e($expense['amount'] ?? ''); ?>">
 						<span>円</span>
 					</div>
 				</div>
 				<div class="form-group form-group-full">
 					<label>メモ</label>
-					<textarea name="note"></textarea>
+					<input type="text" name="note" value="<?= e($expense['note'] ?? ''); ?>">
 				</div>
 				<div class="form-group submit-group">
 					<button type="submit" class="button-primary">登録する</button>
@@ -106,17 +106,17 @@
 									<?php if ($i === 0): ?>
 										<label>品名</label>
 									<?php endif; ?>
-									<input type="text" name="items[<?= $i ?>][item_name]" placeholder="例：牛乳" class="item-name-js" value="<?= e($item['item_name'] ?? ''); ?>">
+									<input type="text" name="items[<?= $i; ?>][item_name]" placeholder="例：牛乳" class="item-name-js" value="<?= e($item['item_name'] ?? ''); ?>">
 								</div>
 								<div class="item-category">
 									<?php if ($i === 0): ?>
 										<label>詳細カテゴリ</label>
 									<?php endif; ?>
-									<select name="items[<?= $i ?>][detail_category_id]" class="detail-category">
+									<select name="items[<?= $i; ?>][detail_category_id]" class="detail-category">
 										<option value="">選択してください</option>
 										<?php foreach ($detail_categories as $detail_category): ?>
-											<option value="<?= $detail_category['id'] ?>" <?= $item && $item['detail_category_id'] == $detail_category['id'] ? 'selected' : ''; ?>>
-												<?= e($detail_category['name']) ?>
+											<option value="<?= $detail_category['id']; ?>" <?= $item && $item['detail_category_id'] == $detail_category['id'] ? 'selected' : ''; ?>>
+												<?= e($detail_category['name']); ?>
 											</option>
 										<?php endforeach; ?>
 									</select>
@@ -126,7 +126,7 @@
 										<label>金額</label>
 									<?php endif; ?>
 									<div class="amount-input">
-										<input type="number" name="items[<?= $i ?>][amount]" class="item-amount" min="0" placeholder="0" value="<?= e($item['amount'] ?? ''); ?>">
+										<input type="number" name="items[<?= $i; ?>][amount]" class="item-amount" min="0" placeholder="0" value="<?= e($item['amount'] ?? ''); ?>">
 										<span>円</span>
 									</div>
 								</div>
