@@ -9,6 +9,9 @@ class Model_Expenseslivingcategorymst extends \Orm\Model
 {
 	protected static $_table_name = 'expenses_living_category_mst';
 
+	const CATEGORY_TYPE_DAILY = 'daily';
+	const CATEGORY_TYPE_FIXED = 'fixed';
+
 	/**
 	 * すべてのレコードを取得する
 	 * 

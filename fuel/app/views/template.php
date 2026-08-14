@@ -17,19 +17,19 @@ $menus = [
 		'class' => 'all',
 		'items' => [
 			[
-				'label' => '全体サマリ',
+				'label' => '（未）全体サマリ',
 				'url' => 'expense/summary',
 				'controller' => 'Controller_Expense',
 				'action' => 'summary',
 			],
 			[
-				'label' => '共有口座状況',
+				'label' => '（未）共有口座状況',
 				'url' => 'expense/account',
 				'controller' => 'Controller_Expense',
 				'action' => 'account',
 			],
 			[
-				'label' => '立て替え状況',
+				'label' => '（未）立て替え状況',
 				'url' => 'expense/advance',
 				'controller' => 'Controller_Expense',
 				'action' => 'advance',
@@ -59,7 +59,7 @@ $menus = [
 				'action' => 'index',
 			],
 			[
-				'label' => '食費サマリ',
+				'label' => '（未）食費サマリ',
 				'url' => 'expense/living/summary',
 				'controller' => 'Controller_Expense_Living_Summary_',
 				'action' => 'index',
@@ -89,7 +89,7 @@ $menus = [
 				'action' => 'index',
 			],
 			[
-				'label' => 'サマリ',
+				'label' => '（未）サマリ',
 				'url' => 'expense/special/summary',
 				'controller' => 'Controller_Expense_Special',
 				'action' => 'summary',

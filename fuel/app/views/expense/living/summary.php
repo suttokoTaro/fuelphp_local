@@ -34,7 +34,7 @@ foreach ($categories as $category) {
 
 			<?php foreach ($categories_by_type as $type => $type_categories): ?>
 				<th colspan="<?= count($type_categories) ?>">
-					<?= $type == 1 ? '日常支出' : '固定支出' ?>
+					<?= $type == Model_Expenseslivingcategorymst::CATEGORY_TYPE_DAILY ? '日常支出' : '固定支出' ?>
 				</th>
 			<?php endforeach; ?>
 
