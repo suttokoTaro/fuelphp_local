@@ -2,47 +2,39 @@ $(function () {
 
 	let itemIndex = 20;
 
-	// 明細追加
+	// 「明細を追加」ボタン押下時
 	$('#add-item').on('click', function () {
-
 		const $row = $('#items .item-row:first').clone();
-
 		// 入力値をリセット
 		$row.find('input').val('');
 		$row.find('select').val('');
-
 		 // 追加行ではlabel不要
 		$row.find('label').remove();
 
 		// nameのindexを変更
 		$row.find('[name]').each(function () {
 			const name = $(this).attr('name');
-
 			$(this).attr(
 				'name',
 				name.replace(/items\[\d+\]/, `items[${itemIndex}]`)
 			);
 		});
-
 		$('#items').append($row);
-
 		itemIndex++;
 	});
 
-
-	// 明細削除
+	// 明細の「削除」ボタン押下時
 	$(document).on('click', '.remove-item', function () {
 		$(this).closest('.item-row').remove();
 		calculateTotal();
 	});
 
-
-	// 金額変更
+	// 金額変更時
 	$(document).on('input', '.item-amount, #main-amount', function () {
 		calculateTotal();
 	});
 
-	// タブ遷移
+	// TabキーとEnterキー押下時
 	$(document).on('keydown', '.item-name-js, .item-amount', function (e) {
 
 		if (e.key !== 'Tab' && e.key !== 'Enter') {
@@ -74,13 +66,14 @@ $(function () {
 		}
 	});
 
+	// Enterキー押下時のフォーム送信停止
 	$('.expense-form').on('keydown', function (e) {
 		if (e.key === 'Enter') {
 			e.preventDefault();
 		}
 	});
 
-	// カテゴリ変更
+	// カテゴリ変更時
 	$('#category-id').on('change', function () {
 		const categoryId = $(this).val();
 		const $itemsArea = $('#items-area');
@@ -109,26 +102,20 @@ $(function () {
 		}
 	});
 
-
+	// 合計金額の再計算
 	function calculateTotal() {
-
 		let itemsTotal = 0;
-
 		$('.item-amount').each(function () {
 			itemsTotal += Number($(this).val()) || 0;
 		});
 
 		const mainAmount = Number($('#main-amount').val()) || 0;
-
 		const unclassifiedAmount = mainAmount - itemsTotal;
-
 		$('#items-total').text(
 			itemsTotal.toLocaleString()
 		);
-
 		$('#unclassified-amount').text(
 			unclassifiedAmount.toLocaleString()
 		);
 	}
-
 });
