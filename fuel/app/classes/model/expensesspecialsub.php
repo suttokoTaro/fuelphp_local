@@ -9,7 +9,22 @@ class Model_Expensesspecialsub extends \Orm\Model
 {
 	protected static $_table_name = 'expenses_special_sub';
 
-	
+	/**
+	 * メインIDをもとに、特別支出の詳細情報リストを取得する
+	 * 
+	 * @param int $main_id
+	 */
+	public static function get_by_main_id($main_id)
+	{
+		$sql = 'SELECT *'.PHP_EOL;
+		$sql .= 'FROM '.self::table().PHP_EOL;
+		$sql .= 'WHERE expenses_special_main_id = :main_id'.PHP_EOL;
+		$sql .= 'ORDER BY sort_order ASC, id ASC'.PHP_EOL;
+		$params = ['main_id' => $main_id,];
+		$result = DB::query($sql)->parameters($params)->execute()->as_array();
+		return $result;
+	}
+
 	public static function insert_data($datas)
 	{
 		$sql = 'INSERT INTO '.self::table().' ('.PHP_EOL;

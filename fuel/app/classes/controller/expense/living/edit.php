@@ -5,7 +5,7 @@
  * 日常生活出費 編集画面
  * 
  */
-class Controller_expense_living_edit extends Controller_Base
+class Controller_Expense_Living_Edit extends Controller_Base
 {
 	private $data = [];
 

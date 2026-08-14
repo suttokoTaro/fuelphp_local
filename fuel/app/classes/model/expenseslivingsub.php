@@ -9,6 +9,11 @@ class Model_Expenseslivingsub extends \Orm\Model
 {
 	protected static $_table_name = 'expenses_living_sub';
 
+	/**
+	 * メインIDをもとに、特別支出の詳細情報リストを取得する
+	 * 
+	 * @param int $main_id
+	 */
 	public static function get_by_main_id($main_id)
 	{
 		$sql = 'SELECT s.*, c.name AS detail_category_name'.PHP_EOL;

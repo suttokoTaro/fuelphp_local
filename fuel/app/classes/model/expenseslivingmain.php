@@ -76,7 +76,7 @@ class Model_Expenseslivingmain extends \Orm\Model
 		$sql .= 'INNER JOIN expenses_living_category_mst c ON c.id = m.category_id'.PHP_EOL;
 		$sql .= 'WHERE m.id = :id'.PHP_EOL;
 		$params = ['id' => $id,];
-		$result = DB::query($sql)->parameters($params)->execute()->current();
+		$result = \DB::query($sql)->parameters($params)->execute()->current();
 		return $result;
 	}
 

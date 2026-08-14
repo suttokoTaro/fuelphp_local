@@ -42,54 +42,47 @@ class Model_Expensesspecialmain extends \Orm\Model
 	 * @param array $conditions
 	 * @return array
 	 */
-	public static function get_list($conditions = [])
+	public static function get_list($conditions)
 	{
-		$sql = '';
-		$sql .= 'SELECT'.PHP_EOL;
-		$sql .= '	esm.id,'.PHP_EOL;
-		$sql .= '	esm.year,'.PHP_EOL;
-		$sql .= '	esm.number,'.PHP_EOL;
-		$sql .= '	esm.expense_date,'.PHP_EOL;
-		$sql .= '	esm.title,'.PHP_EOL;
-		$sql .= '	esm.amount,'.PHP_EOL;
-		$sql .= '	esm.category_id,'.PHP_EOL;
-		$sql .= '	esm.paid_by,'.PHP_EOL;
-		$sql .= '	esc.name AS category_name'.PHP_EOL;
-		$sql .= 'FROM'.PHP_EOL;
-		$sql .= '	expenses_special_main esm'.PHP_EOL;
-		$sql .= 'LEFT JOIN'.PHP_EOL;
-		$sql .= '	expenses_special_category_mst esc'.PHP_EOL;
-		$sql .= '	ON esm.category_id = esc.id'.PHP_EOL;
-		$sql .= 'WHERE'.PHP_EOL;
-		$sql .= '	esm.year = :year'.PHP_EOL;
-
+		$sql = 'SELECT m.*, c.name AS category_name'.PHP_EOL;
+		$sql .= 'FROM '.self::table().' m'.PHP_EOL;
+		$sql .= 'LEFT JOIN expenses_special_category_mst c'.PHP_EOL;
+		$sql .= '	ON c.id = m.category_id'.PHP_EOL;
+		$sql .= 'WHERE m.year = :year'.PHP_EOL;
 		$params = ['year' => $conditions['year'],];
 
-		// カテゴリ
-		if (
-			isset($conditions['category_id'])
-			&& $conditions['category_id'] !== 'all'
-		) {
-			$sql .= '	AND esm.category_id = :category_id'.PHP_EOL;
-
+		if ($conditions['category_id'] !== 'all')
+		{
+			$sql .= '	AND m.category_id = :category_id'.PHP_EOL;
 			$params['category_id'] = $conditions['category_id'];
 		}
-
-		// 立て替え者
-		if (
-			isset($conditions['paid_by'])
-			&& $conditions['paid_by'] !== 'all'
-		) {
-			$sql .= '	AND esm.paid_by = :paid_by'.PHP_EOL;
-
+		if ($conditions['paid_by'] !== 'all')
+		{
+			$sql .= '	AND m.paid_by = :paid_by'.PHP_EOL;
 			$params['paid_by'] = $conditions['paid_by'];
 		}
-		$sql .= 'ORDER BY esm.number ASC'.PHP_EOL;
-
+		$sql .= 'ORDER BY m.number ASC'.PHP_EOL;
 		$result = DB::query($sql)->parameters($params)->execute()->as_array();
 		return $result;
 	}
 
+	/**
+	 * 主キーをもとに、特別支出情報を取得する
+	 * 
+	 * @param int $id
+	 * @return array
+	 */
+	public static function get_by_id($id)
+	{
+		$sql = 'SELECT m.*, c.name AS category_name'.PHP_EOL;
+		$sql .= 'FROM '.self::table().' m'.PHP_EOL;
+		$sql .= 'LEFT JOIN expenses_special_category_mst c'.PHP_EOL;
+		$sql .= '	ON c.id = m.category_id'.PHP_EOL;
+		$sql .= 'WHERE m.id = :id'.PHP_EOL;
+		$params = ['id' => $id,];
+		$result = \DB::query($sql)->parameters($params)->execute()->current();
+		return $result;
+	}
 
 	/**
 	 * 特別支出を登録する

@@ -5,7 +5,7 @@
  * 日常生活出費 詳細ダイアログ画面（ajax）
  * 
  */
-class Controller_expense_living_detailajax extends Controller
+class Controller_Expense_Living_Detailajax extends Controller
 {
 	public function action_index($id)
 	{

@@ -308,3 +308,268 @@
 	color: #999;
 	font-size: 14px;
 }
+
+/* ========================================
+   詳細モーダル
+======================================== */
+
+.modal {
+	display: none;
+
+	position: fixed;
+	inset: 0;
+
+	z-index: 1000;
+}
+
+.modal.is-open {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.modal-overlay {
+	position: absolute;
+	inset: 0;
+
+	background: rgba(20, 45, 30, 0.45);
+	backdrop-filter: blur(2px);
+}
+
+.modal-content {
+	position: relative;
+	z-index: 1;
+
+	width: 720px;
+	max-width: calc(100vw - 40px);
+	max-height: calc(100vh - 60px);
+
+	overflow-y: auto;
+
+	background: #fff;
+
+	border: 1px solid #cce1d3;
+	border-radius: 12px;
+
+	box-shadow: 0 15px 45px rgba(20, 60, 35, 0.22);
+}
+
+
+/* ========================================
+   ヘッダー
+======================================== */
+
+.modal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 13px 18px;
+
+	background: #e7f4eb;
+	border-bottom: 1px solid #cce1d3;
+}
+
+.modal-header h2 {
+	margin: 0;
+
+	color: #326548;
+
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.modal-close {
+	width: 30px;
+	height: 30px;
+
+	padding: 0;
+
+	background: transparent;
+	border: none;
+	border-radius: 50%;
+
+	color: #537461;
+
+	font-size: 24px;
+	line-height: 30px;
+
+	cursor: pointer;
+}
+
+.modal-close:hover {
+	background: #d5eadc;
+}
+
+
+/* ========================================
+   詳細内容
+======================================== */
+
+.special-detail {
+	padding: 18px;
+}
+
+
+/* 基本情報 */
+
+.detail-info-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+
+	gap: 10px;
+
+	margin-bottom: 15px;
+}
+
+.detail-field {
+	padding: 9px 11px;
+
+	background: #f7fbf8;
+	border: 1px solid #e0ece4;
+	border-radius: 7px;
+}
+
+.detail-label {
+	display: block;
+
+	margin-bottom: 3px;
+
+	color: #718078;
+
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.detail-value {
+	color: #333;
+
+	font-size: 14px;
+	font-weight: 500;
+}
+
+
+/* 金額 */
+
+.detail-total-amount {
+	color: #267447;
+
+	font-size: 18px;
+	font-weight: bold;
+}
+
+
+/* カテゴリ */
+
+.detail-category-badge {
+	display: inline-block;
+
+	padding: 2px 8px;
+
+	background: #e0f2e6;
+	border-radius: 12px;
+
+	color: #33734a;
+
+	font-size: 12px;
+	font-weight: bold;
+}
+
+
+/* ========================================
+   メモ
+======================================== */
+
+.detail-note {
+	margin-bottom: 15px;
+	padding: 10px 12px;
+
+	background: #fafcfb;
+	border: 1px solid #e2ebe5;
+	border-radius: 7px;
+}
+
+.detail-note-text {
+	color: #555;
+
+	font-size: 13px;
+	line-height: 1.6;
+}
+
+
+/* ========================================
+   明細
+======================================== */
+
+.detail-section-title {
+	margin-bottom: 7px;
+
+	color: #356348;
+
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.detail-items-table {
+	width: 100%;
+
+	border-collapse: collapse;
+
+	border: 1px solid #dce8e0;
+
+	font-size: 13px;
+}
+
+.detail-items-table th {
+	padding: 7px 10px;
+
+	background: #eaf5ed;
+	border-bottom: 1px solid #cfe2d5;
+
+	color: #416a50;
+
+	text-align: left;
+}
+
+.detail-items-table td {
+	padding: 7px 10px;
+
+	border-bottom: 1px solid #edf1ee;
+}
+
+.detail-items-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.detail-items-table .amount {
+	width: 140px;
+
+	color: #2e7047;
+
+	font-weight: bold;
+	text-align: right;
+}
+
+.detail-items-table .empty {
+	padding: 20px;
+
+	color: #999;
+	text-align: center;
+}
+
+
+/* ========================================
+   読み込み・エラー
+======================================== */
+
+.detail-loading,
+.detail-error {
+	padding: 40px;
+
+	color: #777;
+	text-align: center;
+}
+
+.detail-error {
+	color: #b24a4a;
+}
