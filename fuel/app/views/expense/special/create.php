@@ -1,47 +1,67 @@
+<?php
+	$flash_error = \Session::get_flash('error');
+	$flash_success = \Session::get_flash('success');
+?>
 <div class="special-create-page">
-	<h2 class="page-title">特別支出 新規登録</h2>
+	<h3 class="page-title">特別支出 新規登録</h3>
+	<?php if ($flash_success): ?>
+		<div class="message message-success">
+			<?= e($flash_success); ?>
+		</div>
+	<?php endif; ?>
+	<?php if ($flash_error): ?>
+		<div class="message message-error">
+			<?= e($flash_error); ?>
+		</div>
+	<?php endif; ?>
+	<?php if (!empty($errors)): ?>
+		<div class="message message-error">
+			<div class="message-title">入力内容を確認してください</div>
+			<ul>
+				<?php foreach ($errors as $error): ?>
+					<li><?= e($error); ?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	<?php endif; ?>
 
 	<form method="post" id="special-form">
 		<div class="special-form-grid">
-			<!-- 支出日 -->
 			<div class="form-group">
 				<label for="expense-date">支出日</label>
-				<input type="date" id="expense-date" name="expense_date" value="<?= e(Input::post('expense_date', date('Y-m-d'))) ?>">
+				<input type="date" id="expense-date" name="expense_date" value="<?= $form['expense_date'] ?? date('Y-m-d'); ?>">
 			</div>
-			<!-- タイトル -->
 			<div class="form-group">
 				<label for="title">タイトル</label>
-				<input type="text" id="title" name="title" value="<?= e(Input::post('title', '')) ?>">
+				<input type="text" id="title" name="title" value="<?= e($form['title'] ?? ''); ?>">
 			</div>
-			<!-- カテゴリ -->
 			<div class="form-group">
 				<label for="category-id">カテゴリ</label>
 				<select id="category-id" name="category_id" data-url="<?= \Uri::create('expense/special/category/get-by-year') ?>">
 					<?php foreach ($categories as $category): ?>
-						<option value="<?= e($category['id']) ?>" <?= Input::post('category_id') == $category['id'] ? 'selected' : '' ?>>
-							<?= e($category['name']) ?>
+						<option value="<?= e($category['id']); ?>" <?= ($form['category_id'] ?? 0) == $category['id'] ? 'selected' : ''; ?>>
+							<?= e($category['name']); ?>
 						</option>
 					<?php endforeach; ?>
 				</select>
 			</div>
-			<!-- 合計金額 -->
 			<div class="form-group">
 				<label for="amount">合計金額</label>
-				<input type="number" id="amount" name="amount" value="<?= e(Input::post('amount', '')) ?>">
+				<input type="number" id="amount" name="amount" value="<?= e($form['amount'] ?? ''); ?>">
 			</div>
-			<!-- 立替者 -->
 			<div class="form-group">
 				<label for="paid-by">立替者</label>
 				<select id="paid-by" name="paid_by">
-					<option value="1">共有口座</option>
-					<option value="2">本人</option>
-					<option value="3">配偶者</option>
+					<?php foreach (Model_Expenseslivingmain::PAID_BY_MAP as $value => $label): ?>
+						<option value="<?= $value; ?>" <?= ($form['paid_by'] ?? '') == $value ? 'selected' : ''; ?>>
+							<?= e($label); ?>
+						</option>
+					<?php endforeach; ?>
 				</select>
 			</div>
-			<!-- メモ -->
 			<div class="form-group form-group-note">
 				<label for="note">メモ</label>
-				<textarea id="note" name="note"><?= e(Input::post('note', '')) ?></textarea>
+				<input type="text" id="note" name="note" value="<?= e($form['note'] ?? ''); ?>">
 			</div>
 		</div>
 		<div class="items-section">

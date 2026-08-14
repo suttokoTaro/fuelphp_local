@@ -67,7 +67,6 @@ class Model_Expensesspecialmain extends \Orm\Model
 		$result = DB::query($sql)
 			->parameters($params)
 			->execute();
-
-		return $result->insert_id();
+		return $result[0];
 	}
 }

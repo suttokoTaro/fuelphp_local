@@ -61,7 +61,7 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<label>立て替え者</label>
+					<label>立替者</label>
 					<select name="paid_by">
 						<?php foreach (Model_Expenseslivingmain::PAID_BY_MAP as $value => $label): ?>
 							<option value="<?= $value; ?>" <?= ($form['paid_by'] ?? '') == $value ? 'selected' : ''; ?>>

@@ -7,6 +7,8 @@
  */
 class Controller_Expense_Special_Create extends Controller_Base
 {
+	private $data = [];
+	
 	public function before()
 	{
 		parent::before();
@@ -18,24 +20,25 @@ class Controller_Expense_Special_Create extends Controller_Base
 
 	public function action_index()
 	{
-		$data = [
-			'errors' => [],
-		];
-		$expense_date = Input::post('expense_date', date('Y-m-d'));
-		$year = date('Y', strtotime($expense_date));
-		$categories = Model_Expensesspecialcategorymst::get_by_year($year);
+		// viewに受け渡すデータのセット
+		$this->set_data();
 
-		if (Input::method() === 'POST')
+		// POSTの場合
+		if (\Input::method() === 'POST')
 		{
-			$form = Input::post();
+			$form = \Input::post();
 			$validation = $this->get_validation();
-			if ($validation->run())
+
+			// メイン項目のバリデーション
+			if (!$validation->run())
 			{
-				$category_id = Input::post('category_id');
-				// ========================================
-				// カテゴリと支出日の年が一致しているか
-				// ========================================
-				$category = Model_Expensesspecialcategorymst::get_by_id_and_year($category_id, $year);
+				$this->data['errors'] = $validation->error();
+				$this->data['form'] = $form;
+			}
+			else
+			{
+				$category_id = $form['category_id'];
+				$category = Model_Expensesspecialcategorymst::get_by_id_and_year($category_id, $this->data['year']);
 				if (empty($category))
 				{
 					$validation->error('category_id')->set_message('支出日の年に存在しないカテゴリです。');
@@ -44,59 +47,72 @@ class Controller_Expense_Special_Create extends Controller_Base
 				{
 					try
 					{
-						DB::start_transaction();
-						$number = Model_Expensesspecialmain::get_next_number($year);
-						
+						\DB::start_transaction();
+
+						$number = Model_Expensesspecialmain::get_next_number($this->data['year']);
 						$params = [
-							'year' => $year,
+							'year' => $this->data['year'],
 							'number' => $number,
-							'expense_date' => Input::post('expense_date'),
-							'title' => Input::post('title'),
-							'amount' => Input::post('amount'),
+							'expense_date' => $form['expense_date'],
+							'title' => $form['title'],
+							'amount' => $form['amount'],
 							'category_id' => $category_id,
-							'paid_by' => Input::post('paid_by'),
-							'note' => Input::post('note'),
+							'paid_by' => $form['paid_by'],
+							'note' => $form['note'],
 						];
 						$main_id = Model_Expensesspecialmain::insert_data($params);
 
-						$items = Input::post('items', []);
-						$sort_order = 1;
-						foreach ($items as $item)
+						foreach ($form['items'] as $index => $item)
 						{
-							$item_name = trim($item['item_name'] ?? '');
-							$item_amount = $item['amount'] ?? '';
-	
-							// 完全な空行は登録しない
-							if ($item_name === '' && $item_amount === '')
+							// 明細名が空の場合スルー
+							if (empty($item['item_name']))
 							{
 								continue;
 							}
 							$params = [
 								'expenses_special_main_id' => $main_id,
-								'item_name' => $item_name,
-								'amount' => $item_amount === '' ? 0 : $item_amount,
-								'sort_order' => $sort_order,
+								'item_name' => $item['item_name'],
+								'amount' => (int) $item['amount'],
+								'sort_order' => $index + 1,
 							];
-							
 							Model_Expensesspecialsub::insert_data($params);
-							$sort_order++;
 						}
-						DB::commit_transaction();
-						Response::redirect('expense/special/index');
+
+						\DB::commit_transaction();
+						\Session::set_flash('success', '日常生活費を登録しました。');
+						\Response::redirect('expense/special/create');
 					}
 					catch (\Exception $e)
 					{
 						DB::rollback_transaction();
-						throw $e;
+						\Log::error('特別支出登録エラー: '.$e->getMessage());
+						\Session::set_flash('error','登録に失敗しました。');
+						$this->data['form'] = $form;
 					}
 				}
 			}
 		}	
-		
-		$data['year'] = $year;
-		$data['categories'] = $categories;
-		$view = View::forge('expense/special/create', $data);
+		$view = View::forge('expense/special/create', $this->data);
 		$this->template->content = $view;
+		return;
+	}
+
+	/**
+	 * Viewに渡すデータのセット
+	 * 
+	 * @return void
+	 */
+	private function set_data()
+	{
+		// 初期化
+		$this->data = ['errors' => [],];
+
+		$expense_date = \Input::post('expense_date', date('Y-m-d'));
+		$year = date('Y', strtotime($expense_date));
+		$categories = Model_Expensesspecialcategorymst::get_by_year($year);
+		
+		$this->data['year'] = $year;
+		$this->data['categories'] = $categories;
 	}
 
 	/**
