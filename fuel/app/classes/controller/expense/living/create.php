@@ -24,9 +24,9 @@ class Controller_Expense_Living_Create extends Controller_Base
 		$this->set_data();
 
 		// POSTの場合
-		if (Input::method() === 'POST')
+		if (\Input::method() === 'POST')
 		{
-			$form = Input::post();
+			$form = \Input::post();
 			$validation = $this->get_validation();
 			
 			// メイン項目のバリデーション
@@ -41,7 +41,7 @@ class Controller_Expense_Living_Create extends Controller_Base
 				$year = (int) date('Y', strtotime($expense_date));
 				try
 				{
-					DB::start_transaction();
+					\DB::start_transaction();
 
 					// メイン項目の登録
 					$number = Model_Expenseslivingmain::get_next_number($year);
@@ -76,20 +76,20 @@ class Controller_Expense_Living_Create extends Controller_Base
 						Model_Expenseslivingsub::insert($params);
 					}
 
-					DB::commit_transaction();
-					Session::set_flash('success', '日常生活費を登録しました。');
-					return Response::redirect('expense/living/create');
+					\DB::commit_transaction();
+					\Session::set_flash('success', '日常生活費を登録しました。');
+					return \Response::redirect('expense/living/create');
 				}
-				catch (Exception $e)
+				catch (\Exception $e)
 				{
-					DB::rollback_transaction();
-					Log::error('生活費登録エラー: '.$e->getMessage());
-					Session::set_flash('error','登録に失敗しました。');
+					\DB::rollback_transaction();
+					\Log::error('生活費登録エラー: '.$e->getMessage());
+					\Session::set_flash('error','登録に失敗しました。');
 					$this->data['form'] = $form;
 				}
 			}
 		}
-		$view = View::forge('expense/living/create', $this->data);
+		$view = \View::forge('expense/living/create', $this->data);
 		$this->template->content = $view;
 		return;
 	}
@@ -118,7 +118,7 @@ class Controller_Expense_Living_Create extends Controller_Base
 	 */
 	private function get_validation()
 	{
-		$validation = Validation::forge();
+		$validation = \Validation::forge();
 
 		$validation
 			->add('expense_date', '支出日')

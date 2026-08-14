@@ -18,8 +18,8 @@ class Controller_Expense_Living_List extends Controller_Base
 
 	public function action_index()
 	{
-		$year = Input::get('year', date('Y'));
-		$paid_by = Input::get('paid_by', 'all');
+		$year = \Input::get('year', date('Y'));
+		$paid_by = \Input::get('paid_by', 'all');
 
 		$conditions = [
 			'year' => $year,
@@ -36,7 +36,7 @@ class Controller_Expense_Living_List extends Controller_Base
 			'total_amount' => $total_amount,
 		];
 
-		$view = View::forge('expense/living/list', $data);
+		$view = \View::forge('expense/living/list', $data);
 		$this->template->content = $view;
 		return;
 	}
