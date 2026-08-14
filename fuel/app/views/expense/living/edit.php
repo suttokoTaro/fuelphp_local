@@ -98,7 +98,7 @@
 				<!-- 左側 -->
 				<div class="items-main">
 					<div id="items">
-						<?php $row_count = max(10, count($items)); ?>
+						<?php $row_count = max(20, count($items)); ?>
 						<?php for ($i = 0; $i < $row_count; $i++): ?>
 							<?php $item = $items[$i] ?? null; ?>
 							<div class="item-row">

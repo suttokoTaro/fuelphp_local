@@ -1,6 +1,6 @@
 $(function () {
 
-	let itemIndex = 10;
+	let itemIndex = 20;
 
 	// 明細追加
 	$('#add-item').on('click', function () {
