@@ -7,6 +7,8 @@
  */
 class Controller_Expense_Living_Create extends Controller_Base
 {
+	private $data = [];
+
 	public function before()
 	{
 		parent::before();
@@ -18,16 +20,10 @@ class Controller_Expense_Living_Create extends Controller_Base
 
 	public function action_index()
 	{
-		$data = [
-			'errors' => [],
-		];
-		$categories = Model_Expenseslivingcategorymst::get_all();
-		$stores = Model_Expenseslivingstoremst::get_all();
-		$detail_categories = Model_Expenseslivingdetailcategorymst::get_all();
-		$data['categories'] = $categories;
-		$data['stores'] = $stores;
-		$data['detail_categories'] = $detail_categories;
+		// viewに受け渡すデータのセット
+		$this->set_data();
 
+		// POSTの場合
 		if (Input::method() === 'POST')
 		{
 			$form = Input::post();
@@ -36,16 +32,18 @@ class Controller_Expense_Living_Create extends Controller_Base
 			// メイン項目のバリデーション
 			if (!$validation->run())
 			{
-				$data['errors'] = $validation->error();
-				$data['form'] = $form;
+				$this->data['errors'] = $validation->error();
+				$this->data['form'] = $form;
 			}
 			else
 			{
-				$expense_date = Input::post('expense_date');
+				$expense_date = $form['expense_date'];
 				$year = (int) date('Y', strtotime($expense_date));
 				try
 				{
 					DB::start_transaction();
+
+					// メイン項目の登録
 					$number = Model_Expenseslivingmain::get_next_number($year);
 					$params = [
 						'year' => $year,
@@ -62,7 +60,7 @@ class Controller_Expense_Living_Create extends Controller_Base
 
 					foreach ($form['items'] as $index => $item)
 					{
-						// 完全な空行なら無視
+						// 明細名が空の場合スルー
 						if (empty($item['item_name']))
 						{
 							continue;
@@ -77,6 +75,7 @@ class Controller_Expense_Living_Create extends Controller_Base
 						];
 						Model_Expenseslivingsub::insert($params);
 					}
+
 					DB::commit_transaction();
 					Session::set_flash('success', '日常生活費を登録しました。');
 					return Response::redirect('expense/living/create');
@@ -86,17 +85,36 @@ class Controller_Expense_Living_Create extends Controller_Base
 					DB::rollback_transaction();
 					Log::error('生活費登録エラー: '.$e->getMessage());
 					Session::set_flash('error','登録に失敗しました。');
-					$data['form'] = $form;
+					$this->data['form'] = $form;
 				}
 			}
 		}
-		$view = View::forge('expense/living/create', $data);
+		$view = View::forge('expense/living/create', $this->data);
 		$this->template->content = $view;
 		return;
 	}
 
 	/**
-	 * バリデーション
+	 * Viewに渡すデータのセット
+	 * 
+	 * @return void
+	 */
+	private function set_data()
+	{
+		// 初期化
+		$this->data = ['errors' => [],];
+
+		// 画面に必要なマスタ情報の取得
+		$categories        = Model_Expenseslivingcategorymst::get_all();
+		$stores            = Model_Expenseslivingstoremst::get_all();
+		$detail_categories = Model_Expenseslivingdetailcategorymst::get_all();
+		$this->data['categories']        = $categories;
+		$this->data['stores']            = $stores;
+		$this->data['detail_categories'] = $detail_categories;
+	}
+
+	/**
+	 * バリデーションの設定
 	 */
 	private function get_validation()
 	{
@@ -132,5 +150,4 @@ class Controller_Expense_Living_Create extends Controller_Base
 
 		return $validation;
 	}
-
 }
